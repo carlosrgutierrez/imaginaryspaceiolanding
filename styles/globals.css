@@ -1,0 +1,167 @@
+@import "tailwindcss";
+
+/* ─── Fonts: resolved at runtime by next/font ─── */
+@theme inline {
+  --font-sans: var(--font-plus-jakarta);
+  --font-serif: var(--font-poppins);
+}
+
+/* ─── Design tokens: Tailwind utilities + CSS vars on :root ─── */
+@theme {
+  /* Backgrounds */
+  --color-bg-primary:      #0A0A0A;
+  --color-bg-secondary:    #111111;
+  --color-bg-card:         #1A1A1A;
+  --color-bg-card-border:  #2A2A2A;
+
+  /* Accent — the only accent colour (blue gradient system) */
+  --color-accent:          #60a5fa;
+  --color-accent-light:    #bfdbfe;
+  --color-accent-dark:     #385bc7;
+  --color-accent-bg:       rgba(96, 165, 250, 0.15);
+
+  /* Text */
+  --color-text-primary:    #FFFFFF;
+  --color-text-secondary:  #A1A1AA;
+  --color-text-muted:      #71717A;
+
+  /* Card border */
+  --color-card-border:     rgba(255, 255, 255, 0.08);
+
+  /* Section padding */
+  --spacing-section:       7.5rem;   /* 120px desktop  */
+  --spacing-section-md:    5rem;     /* 80px  tablet   */
+  --spacing-section-sm:    3.75rem;  /* 60px  mobile   */
+
+  /* Radii */
+  --radius-card:    0.75rem;
+  --radius-card-lg: 1rem;
+  --radius-pill:    9999px;
+}
+
+/* ─── Raw CSS aliases (used with var() in custom CSS) ─── */
+:root {
+  --accent:          #60a5fa;
+  --accent-light:    #bfdbfe;
+  --accent-dark:     #385bc7;
+  --accent-bg:       rgba(96, 165, 250, 0.15);
+  --accent-grad:     linear-gradient(135deg, #60a5fa 40%, #bfdbfe 100%);
+  --bg-primary:      #0A0A0A;
+  --bg-secondary:    #111111;
+  --bg-card:         #1A1A1A;
+  --bg-card-border:  #2A2A2A;
+  --text-primary:    #FFFFFF;
+  --text-secondary:  #A1A1AA;
+  --text-muted:      #71717A;
+  --gradient-cta:    linear-gradient(180deg, #0A0A0A 0%, #0A1E3C 50%, #0D2E5C 100%);
+}
+
+/* ─── Marquee keyframe ─── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Base ─── */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg-primary);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Poppins heading defaults ─── */
+/* Poppins is a geometric sans; needs weight + tight tracking to read as display */
+.font-serif {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+/* Headings balance across line breaks */
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* Tabular digits for stats/numbers */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Grain / noise texture overlay ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── Marquee utility ─── */
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ─── Focus visible (keyboard navigation) ─── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Remove default focus ring for mouse/touch users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ─── Text selection ─── */
+::selection {
+  background-color: rgba(96, 165, 250, 0.25);
+  color: #ffffff;
+}
+
+/* ─── Blue gradient accent helpers ─── */
+.bg-accent-grad {
+  background-image: var(--accent-grad);
+}
+.text-accent-grad {
+  background-image: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ─── Hide scrollbar (used for horizontal tab overflow) ─── */
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Skip-to-content link (screen readers) ─── */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0 0 4px 4px;
+  z-index: 10000;
+  transition: top 0.15s;
+}
+.skip-nav:focus {
+  top: 0;
+}

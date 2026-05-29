@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Accent Preview — gradient</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0A0A0A; --card: #1A1A1A; --border: rgba(255,255,255,0.08);
+    --txt: #fff; --txt2: #A1A1AA; --txt3: #71717A;
+    --grad: linear-gradient(135deg, #60a5fa 40%, #bfdbfe 100%);
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font-family:"Plus Jakarta Sans",sans-serif; -webkit-font-smoothing:antialiased; }
+  .display { font-family:"Poppins",sans-serif; font-weight:600; letter-spacing:-0.02em; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 56px 32px 80px; }
+  .head { margin-bottom: 8px; }
+  .head h1 { font-family:"Poppins"; font-weight:600; letter-spacing:-0.02em; font-size:30px; margin:0 0 8px; }
+  .head .swatch-bar { display:flex; gap:14px; align-items:center; margin-top:18px; }
+  .head .swatch-bar .bar { width: 280px; height: 46px; border-radius:10px; background:var(--grad); border:1px solid var(--border); }
+  .head .swatch-bar code { font-family: ui-monospace, monospace; font-size:12px; color:var(--txt3); }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:36px; }
+  @media(max-width:760px){ .grid{ grid-template-columns:1fr; } }
+  .panel { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; }
+  .panel .label { font-size:11px; text-transform:uppercase; letter-spacing:0.18em; color:var(--txt3); margin:0 0 18px; }
+  .row { display:flex; gap:16px; align-items:center; flex-wrap:wrap; }
+
+  /* gradient button (solid) */
+  .btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; border-radius:9999px; cursor:pointer; border:1px solid transparent; padding:11px 26px; font-size:11px; text-transform:uppercase; letter-spacing:0.14em; transition:filter .2s; }
+  .btn-grad { background:var(--grad); color:#06203f; }
+  .btn-grad:hover { filter:brightness(1.08); }
+  .btn-outline { background:transparent; border-color:rgba(255,255,255,0.8); color:#fff; }
+  .btn-outline:hover { background:#fff; color:#0A0A0A; }
+
+  /* badge with logo */
+  .badge { width:40px; height:40px; border-radius:9px; background:var(--grad); display:flex; align-items:center; justify-content:center; }
+  .badge img { width:70%; height:auto; display:block; }
+  .lockup { display:flex; align-items:center; gap:12px; }
+  .lockup .nm { font-weight:600; font-size:15px; letter-spacing:0.1em; text-transform:uppercase; }
+
+  /* gradient text label */
+  .glabel { display:inline-block; font-size:12px; font-weight:600; text-transform:uppercase; letter-spacing:0.22em; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  /* accent highlight */
+  .hl { background:var(--grad); color:#06203f; padding:2px 8px; border-radius:4px; }
+
+  /* stat number gradient */
+  .stat .num { font-family:"Poppins"; font-weight:600; font-size:46px; line-height:1; background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .stat .lbl { font-size:12px; text-transform:uppercase; letter-spacing:0.14em; color:var(--txt3); margin-top:8px; }
+
+  /* faq open state */
+  .faq { border:1px solid; border-image: var(--grad) 1; border-radius:12px; padding:18px 22px; background:rgba(96,165,250,0.06); }
+  .faq .q { font-weight:500; font-size:14px; }
+
+  /* diffuse bloom */
+  .bloom-stage { position:relative; height:220px; border-radius:16px; overflow:hidden; background:#0A0A0A; border:1px solid var(--border); }
+  .bloom { position:absolute; left:50%; top:-30%; transform:translateX(-50%); width:120%; height:160%;
+    background: radial-gradient(ellipse 50% 42% at 50% 45%, rgba(96,165,250,0.45) 0%, rgba(191,219,254,0.18) 40%, rgba(96,165,250,0) 75%);
+    filter: blur(40px); }
+  .bloom-stage .cap { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+  .bloom-stage .cap span { font-family:"Poppins"; font-weight:600; font-size:24px; }
+  .full { grid-column: 1 / -1; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>Accent preview — <span class="hl">gradient</span></h1>
+      <div class="swatch-bar">
+        <div class="bar"></div>
+        <code>linear-gradient(135deg, #60a5fa 40%, #bfdbfe 100%)</code>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <p class="label">Buttons</p>
+        <div class="row">
+          <button class="btn btn-grad">Get in Touch →</button>
+          <button class="btn btn-outline">Learn more</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="label">Logo lockup</p>
+        <div class="lockup">
+          <div class="badge"><img src="assets/logo-dark.png" alt="Imaginary Space" /></div>
+          <span class="nm">Imaginary Space</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="label">Label &amp; highlight</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <span class="glabel">Our Process</span>
+          <span class="display" style="font-size:26px;">We <span class="hl">deliver</span> it.</span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p class="label">Stat &amp; FAQ accent</p>
+        <div class="row" style="gap:32px;">
+          <div class="stat"><div class="num">2,500+</div><div class="lbl">clients empowered</div></div>
+          <div class="faq" style="flex:1;min-width:200px;"><span class="q">What does Imaginary Space do?</span></div>
+        </div>
+      </div>
+
+      <div class="panel full">
+        <p class="label">Diffuse bloom</p>
+        <div class="bloom-stage">
+          <div class="bloom"></div>
+          <div class="cap"><span>We don't just talk AI. We <span class="hl">deliver</span> it.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

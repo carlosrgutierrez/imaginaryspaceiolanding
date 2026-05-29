@@ -1,0 +1,23 @@
+# Firebase App Hosting config for Next.js on Cloud Run
+# Docs: https://firebase.google.com/docs/app-hosting/configure
+
+runConfig:
+  minInstances: 0
+  maxInstances: 10
+  concurrency: 80
+
+env:
+  - variable: NOTION_API_KEY
+    secret: NOTION_API_KEY
+  - variable: NOTION_DATABASE_ID
+    secret: NOTION_DATABASE_ID
+  # Public GA4 measurement ID (not a secret). Set your real ID before deploy:
+  # - variable: NEXT_PUBLIC_GA_MEASUREMENT_ID
+  #   value: G-XXXXXXXXXX
+
+# Set secrets before first deploy:
+#   firebase apphosting:secrets:set NOTION_API_KEY
+#   firebase apphosting:secrets:set NOTION_DATABASE_ID
+#
+# Connect GitHub repo in Firebase Console → Build → App Hosting.
+# Point GoDaddy DNS A/CNAME records at the Firebase custom domain once deployed.

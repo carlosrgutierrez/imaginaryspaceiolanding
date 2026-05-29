@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Imaginary Space — AI &amp; Automation Consulting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+  :root {
+    --accent: #60a5fa;
+    --accent-light: #bfdbfe;
+    --accent-dark: #385bc7;
+    --accent-grad: linear-gradient(135deg, #60a5fa 40%, #bfdbfe 100%);
+    --accent-bg: rgba(96,165,250,0.15);
+    --bg-primary: #0A0A0A;
+    --bg-secondary: #111111;
+    --bg-card: #1A1A1A;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A1A1AA;
+    --text-muted: #71717A;
+    --card-border: rgba(255,255,255,0.08);
+    --gradient-cta: linear-gradient(180deg, #0A0A0A 0%, #0A1E3C 50%, #0D2E5C 100%);
+    --font-display: "Poppins", system-ui, sans-serif;
+    --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+    --maxw: 1280px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg-primary); color: var(--text-primary);
+    font-family: var(--font-body); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+  body::after {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 256px 256px;
+  }
+  ::selection { background: rgba(96,165,250,0.25); color: #fff; }
+  h1,h2,h3 { text-wrap: balance; }
+  .display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+  .container { max-width: var(--maxw); margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+  .accent-grad-text { background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hl { background: var(--accent-grad); color: var(--bg-primary); padding: 0 10px; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+
+  /* labels & buttons */
+  .section-label { display:inline-block; font-family: var(--font-body); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.22em; background: var(--accent-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; border-radius:9999px; cursor:pointer; border:1px solid transparent; text-decoration:none; transition: all .2s ease; }
+  .btn-sm { padding:8px 20px; font-size:11px; }
+  .btn-lg { padding:14px 36px; font-size:12px; }
+  .btn-outline { border-color: rgba(255,255,255,0.8); background: transparent; color:#fff; text-transform:uppercase; letter-spacing:0.14em; }
+  .btn-outline:hover { background:#fff; color: var(--bg-primary); }
+
+  /* ── NAVBAR ── */
+  header.nav { position: fixed; top:0; left:0; right:0; z-index: 50; transition: background .3s, border-color .3s, backdrop-filter .3s; border-bottom: 1px solid transparent; }
+  header.nav.scrolled { background: rgba(10,10,10,0.8); backdrop-filter: blur(12px); border-bottom-color: rgba(255,255,255,0.06); }
+  .nav-inner { max-width: var(--maxw); margin:0 auto; padding: 0 32px; height: 80px; display:flex; align-items:center; justify-content:space-between; }
+  .brand { display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .brand-mark { width:30px; height:30px; border-radius:7px; background: var(--accent-grad); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .brand-mark img { width:70%; height:auto; display:block; }
+  .brand-name { font-weight:600; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; color:#fff; }
+  .nav-links { display:flex; align-items:center; gap:32px; }
+  .nav-links a { font-size:14px; color: var(--text-secondary); text-decoration:none; transition: color .15s; }
+  .nav-links a:hover { color:#fff; }
+  @media(max-width:720px){ .nav-links{ display:none; } }
+
+  /* ── reveal animation ── */
+  .reveal { opacity:0; transform: translateY(30px); transition: opacity .7s cubic-bezier(.25,.46,.45,.94), transform .7s cubic-bezier(.25,.46,.45,.94); }
+  .reveal.from-right { transform: translateX(70px); }
+  .reveal.in { opacity:1; transform: none; }
+
+  /* ── HERO ── */
+  .hero { position: relative; min-height: 92vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding: 120px 24px 60px; overflow:hidden; }
+  .hero .bloom { position:absolute; left:50%; top:-10%; transform:translateX(-50%); width:110%; height:130%; z-index:0; pointer-events:none;
+    background: radial-gradient(ellipse 42% 40% at 50% 45%, rgba(96,165,250,0.22) 0%, rgba(191,219,254,0.08) 45%, rgba(96,165,250,0) 72%); filter: blur(50px); }
+  .hero > * { position: relative; z-index:1; }
+  .hero h1 { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size: clamp(40px, 7vw, 76px); line-height: 1.5; max-width: 16ch; margin:0; }
+  .hero p { color: var(--text-secondary); font-size: clamp(16px,2vw,20px); line-height:1.6; max-width: 30rem; margin: 32px auto 0; }
+
+  /* ── MARQUEE ── */
+  .marquee-sec { padding: 56px 0; border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); overflow:hidden; }
+  .marquee-sec .eyebrow { text-align:center; font-size:10px; text-transform:uppercase; letter-spacing:0.28em; color: var(--text-muted); margin:0 0 36px; }
+  @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+  .marquee-wrap { -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent); }
+  .marquee { display:flex; gap:72px; align-items:center; width:max-content; animation: marquee 32s linear infinite; }
+  .marquee span { font-weight:600; font-size:22px; color: rgba(161,161,170,0.5); white-space:nowrap; }
+
+  /* ── SCROLL REVEAL STORY ── */
+  .story { position: relative; height: 300vh; }
+  .story-sticky { position: sticky; top:0; height: 100vh; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .story-glow { position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(96,165,250,0.05) 0%, transparent 70%); }
+  .story-inner { position:relative; max-width: 60rem; margin:0 auto; padding: 0 32px; }
+  .story-inner p { margin:0 0 28px; font-family: var(--font-body); font-size: clamp(26px,4.2vw,46px); line-height:1.32; font-weight:600; letter-spacing:-0.01em; }
+  .story-inner p:last-child { margin-bottom:0; }
+  .story-inner .w { color:#fff; opacity:0.12; transition: opacity .12s linear; }
+  .story-inner .w.accent { color: var(--accent-light); }
+
+  /* ── generic section ── */
+  .section { padding: 120px 0; border-top:1px solid rgba(255,255,255,0.05); }
+  .section.tight { padding: 80px 0; }
+  .h2 { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size: clamp(32px,5vw,56px); line-height:1.1; margin:0; }
+
+  /* value prop */
+  .value .lead { max-width: 48rem; }
+  .value h2 { line-height: 1.18; margin: 24px 0 28px; }
+  .value p { color: var(--text-secondary); font-size:18px; line-height:1.7; margin:0 0 16px; max-width: 46rem; }
+
+  /* process */
+  .process-head { text-align:center; margin-bottom: 72px; }
+  .process-rule { display:flex; align-items:center; gap:16px; margin-bottom: 28px; }
+  .process-rule .line { height:1px; flex:1; background: rgba(255,255,255,0.08); }
+  .steps { display:flex; flex-direction:column; gap:32px; }
+  .step { display:flex; gap:40px; align-items:flex-start; }
+  .step .num { flex-shrink:0; width:120px; text-align:right; font-family: var(--font-display); font-weight:600; font-size: clamp(48px,8vw,104px); line-height:1; color:transparent; -webkit-text-stroke:1px rgba(96,165,250,0.3); }
+  @media(max-width:760px){ .step{ gap:18px; } .step .num{ width:54px; } }
+  .step-card { flex:1; background: var(--bg-card); border:1px solid var(--card-border); border-radius:16px; padding:40px; transition: border-color .2s; }
+  .step-card:hover { border-color: rgba(255,255,255,0.16); }
+  .step-top { display:flex; align-items:flex-start; gap:16px; margin-bottom:16px; }
+  .step-ico { width:36px; height:36px; border-radius:10px; background: rgba(96,165,250,0.1); border:1px solid rgba(96,165,250,0.2); display:flex; align-items:center; justify-content:center; color: var(--accent); flex-shrink:0; margin-top:2px; }
+  .step-card h3 { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size: clamp(22px,3vw,30px); margin:0; padding-top:2px; }
+  .step-card .desc { color: var(--text-secondary); font-size:16px; line-height:1.6; margin: 0 0 24px; }
+  .step-card ul { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media(max-width:640px){ .step-card ul{ grid-template-columns:1fr; } .step-card{ padding:28px; } }
+  .step-card li { display:flex; align-items:center; gap:10px; font-size:14px; color: var(--text-muted); }
+  .step-card li .dot { width:4px; height:4px; border-radius:50%; background: var(--accent); flex-shrink:0; }
+
+  /* testimonials */
+  .tcenter { text-align:center; margin-bottom: 64px; }
+  .grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap:24px; }
+  @media(max-width:900px){ .grid3{ grid-template-columns:1fr; } }
+  .quote { background: var(--bg-card); border:1px solid var(--card-border); border-radius:12px; padding:32px; display:flex; flex-direction:column; justify-content:space-between; gap:32px; height:100%; }
+  .quote p { font-size:16px; color: var(--text-secondary); line-height:1.65; margin:0; }
+  .quote .by { border-top:1px solid var(--card-border); padding-top:20px; }
+  .quote .nm { font-weight:600; font-size:14px; }
+  .quote .rl { font-size:12px; color: var(--text-muted); margin-top:4px; }
+
+  /* stats */
+  .stats { display:grid; grid-template-columns: repeat(4,1fr); gap:32px; }
+  @media(max-width:760px){ .stats{ grid-template-columns:1fr 1fr; gap:40px 24px; } }
+  .stat .num { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size: clamp(40px,5vw,52px); line-height:1; font-variant-numeric: tabular-nums; }
+  .stat .lbl { font-size:12px; color: var(--text-muted); text-transform:uppercase; letter-spacing:0.14em; margin-top:12px; }
+
+  /* case studies */
+  .cs-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom: 56px; flex-wrap:wrap; }
+  .cs-card { display:block; text-decoration:none; border:1px solid var(--card-border); border-radius:16px; overflow:hidden; transition: border-color .2s; }
+  .cs-card:hover { border-color: rgba(255,255,255,0.16); }
+  .cs-img { position:relative; height:208px; overflow:hidden; }
+  .cs-img .glow { position:absolute; inset:0; background: radial-gradient(ellipse at 30% 30%, rgba(96,165,250,0.1), transparent 60%); }
+  .cs-shot { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
+  .cs-img::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background: linear-gradient(180deg, rgba(8,10,14,0.30) 0%, rgba(8,10,14,0.10) 42%, rgba(8,10,14,0.76) 100%); }
+  .cs-tag { position:absolute; bottom:16px; left:16px; z-index:2; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color: rgba(96,165,250,0.8); background: rgba(96,165,250,0.1); border:1px solid rgba(96,165,250,0.2); border-radius:9999px; padding:5px 14px; white-space:nowrap; }
+  .cs-body { padding:24px; }
+  .cs-body .kicker { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color: var(--text-muted); margin:0 0 10px; }
+  .cs-body h3 { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size:20px; line-height:1.3; margin:0 0 12px; transition: color .2s; }
+  .cs-card:hover .cs-body h3 { color: var(--accent); }
+  .cs-body p { font-size:14px; color: var(--text-muted); line-height:1.6; margin:0; }
+  .cs-more { display:inline-flex; align-items:center; gap:7px; margin-top:18px; font-size:12px; font-weight:600; letter-spacing:0.04em; color: var(--accent); transition: gap .2s; white-space:nowrap; }
+  .cs-card:hover .cs-more, .cs-card:focus-visible .cs-more { gap:11px; }
+  .cs-more i { width:14px; height:14px; }
+  .cs-card { cursor:pointer; background: var(--bg-card); outline:none; }
+  .cs-card:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(96,165,250,0.25); }
+
+  /* case study modal */
+  .cs-overlay { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px; opacity:0; visibility:hidden; transition: opacity .32s ease, visibility .32s; }
+  .cs-overlay.open { opacity:1; visibility:visible; }
+  .cs-overlay .scrim { position:absolute; inset:0; background: rgba(5,7,12,0.66); backdrop-filter: blur(7px); -webkit-backdrop-filter: blur(7px); }
+  .cs-modal { position:relative; width:min(740px,100%); max-height:88vh; background: var(--bg-card); border:1px solid var(--card-border); border-radius:22px; overflow:hidden; display:flex; flex-direction:column; transform-origin: top left; box-shadow: 0 50px 130px rgba(0,0,0,0.62); will-change: transform; }
+  .cs-modal-scroll { overflow-y:auto; overscroll-behavior: contain; }
+  .cs-modal-hero { position:relative; height:240px; flex-shrink:0; background-size:cover; background-position:center; }
+  .cs-modal-hero::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, transparent 40%, rgba(10,10,10,0.55) 100%); }
+  .cs-modal-hero .glow { position:absolute; inset:0; background: radial-gradient(ellipse at 30% 30%, rgba(96,165,250,0.14), transparent 60%); }
+  .cs-modal-hero .cs-tag { z-index:1; }
+  .cs-modal-close { position:absolute; top:16px; right:16px; width:42px; height:42px; border-radius:9999px; background: rgba(10,10,10,0.45); border:1px solid rgba(255,255,255,0.16); color:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:3; backdrop-filter: blur(6px); transition: background .2s, transform .2s; }
+  .cs-modal-close:hover { background: rgba(10,10,10,0.8); transform: rotate(90deg); }
+  .cs-content { opacity:0; transition: opacity .3s ease .14s; }
+  .cs-overlay.open .cs-content { opacity:1; }
+  .cs-modal-body { padding: 34px 40px 44px; }
+  @media(max-width:560px){ .cs-modal-body{ padding:26px 22px 32px; } .cs-modal-hero{ height:180px; } }
+  .cs-modal-body .kicker { font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.2em; color: var(--text-muted); margin:0 0 10px; }
+  .cs-modal-body h3 { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size: clamp(24px,3.4vw,32px); line-height:1.18; margin:0 0 10px; }
+  .cs-modal-body .cs-sub { color: var(--text-secondary); font-size:16px; line-height:1.6; margin:0 0 26px; }
+  .cs-metrics { display:flex; flex-wrap:wrap; gap:12px; margin:0 0 30px; }
+  .cs-metric { flex:1 1 0; min-width:120px; background: rgba(96,165,250,0.06); border:1px solid rgba(96,165,250,0.16); border-radius:12px; padding:16px 18px; }
+  .cs-metric .v { font-family: var(--font-display); font-weight:600; font-size:24px; letter-spacing:-0.02em; background: var(--accent-grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .cs-metric .k { font-size:11px; color: var(--text-muted); margin-top:6px; line-height:1.4; }
+  .cs-block { margin-top:26px; }
+  .cs-block:first-of-type { margin-top:0; }
+  .cs-block h4 { font-family: var(--font-body); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.18em; color: var(--accent); margin:0 0 10px; }
+  .cs-block p { color: var(--text-secondary); font-size:15px; line-height:1.7; margin:0; }
+
+  /* faq */
+  .faq-wrap { max-width: 48rem; margin: 0 auto; }
+  .faq-head { text-align:center; margin-bottom: 56px; }
+  .faq-head p { color: var(--text-secondary); margin: 20px 0 0; }
+  .faq-list { display:flex; flex-direction:column; gap:12px; }
+  .faq-item { border:1px solid var(--card-border); background: var(--bg-card); border-radius:12px; overflow:hidden; transition: border-color .2s, background .2s; }
+  .faq-item.open { border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.05); }
+  .faq-btn { width:100%; text-align:left; padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:0; cursor:pointer; color:#fff; font-family: var(--font-body); }
+  .faq-q { font-size:15px; font-weight:500; }
+  .faq-chev { transition: transform .2s; color: var(--text-muted); display:flex; }
+  .faq-item.open .faq-chev { transform: rotate(180deg); color: var(--accent); }
+  .faq-a { max-height:0; overflow:hidden; opacity:0; transition: max-height .25s ease, opacity .25s ease; }
+  .faq-item.open .faq-a { max-height: 260px; opacity:1; }
+  .faq-a p { padding:0 24px 20px; margin:0; font-size:14px; color: var(--text-secondary); line-height:1.65; }
+
+  /* cta */
+  .cta { padding: 140px 0; text-align:center; background: var(--gradient-cta); }
+  .cta .lines p { font-family: var(--font-display); font-weight:600; letter-spacing:-0.02em; font-size: clamp(36px,6vw,72px); line-height:1.05; margin:2px 0; }
+  .cta .dashed { display:inline-block; border:1px dashed rgba(255,255,255,0.2); border-radius:8px; padding:14px 28px; margin: 48px 0; }
+  .cta .dashed p { font-size:14px; color: var(--text-secondary); font-style:italic; margin:0; }
+
+  /* footer */
+  footer.site { border-top:1px solid rgba(255,255,255,0.06); }
+  .footer-inner { max-width: var(--maxw); margin:0 auto; padding: 28px 32px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .footer-left { display:flex; align-items:center; gap:10px; }
+  .footer-left .brand-mark { width:26px; height:26px; border-radius:6px; }
+  .footer-left span { font-size:14px; color: var(--text-muted); }
+  .footer-links { display:flex; gap:24px; }
+  .footer-links a { font-size:14px; color: var(--text-muted); text-decoration:none; transition: color .15s; }
+  .footer-links a:hover { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark"><img src="assets/logo-dark.png" alt="Imaginary Space" /></span>
+        <span class="brand-name">Imaginary Space</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#process">Services</a>
+        <a href="#stats">Team</a>
+      </nav>
+      <a class="btn btn-outline btn-sm" href="#cta">Get in Touch →</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bloom"></div>
+      <h1 class="reveal">We don't just talk AI.<br>We <span class="hl">deliver</span> it.</h1>
+      <p class="reveal" data-delay="200">Enterprise AI consulting that moves from strategy to production — without the pilot purgatory.</p>
+    </section>
+
+    <!-- MARQUEE -->
+    <section class="marquee-sec">
+      <p class="eyebrow">Trusted by innovative companies</p>
+      <div class="marquee-wrap"><div class="marquee" id="marquee"></div></div>
+    </section>
+
+    <!-- SCROLL REVEAL STORY -->
+    <section class="story" id="story">
+      <div class="story-sticky">
+        <div class="story-glow"></div>
+        <div class="story-inner" id="story-inner"></div>
+      </div>
+    </section>
+
+    <!-- VALUE PROPOSITION -->
+    <section class="section value">
+      <div class="container">
+        <div class="lead">
+          <h2 class="h2 reveal" data-delay="100">That's why we built Imaginary Space.</h2>
+          <div class="reveal" data-delay="200">
+            <p>AI that actually moves the needle.</p>
+            <p>Imaginary Space defines what's worth building, builds it for you, then trains your people to make it stick.</p>
+            <p>Stop paying to experiment. Start paying for results.</p>
+          </div>
+          <div class="reveal" data-delay="300" style="margin-top:32px;">
+            <a class="btn btn-outline btn-lg" href="#cta">Start the Conversation →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="section" id="process">
+      <div class="container">
+        <div class="process-head">
+          <div class="process-rule reveal">
+            <span class="brand-mark" style="width:24px;height:24px;border-radius:6px;"><img src="assets/logo-dark.png" alt="" /></span>
+            <span class="line"></span>
+            <span class="section-label">Our Process</span>
+            <span class="line"></span>
+          </div>
+          <h2 class="h2 reveal" data-delay="100">Our days consist of three things.</h2>
+        </div>
+        <div class="steps" id="steps"></div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS — hidden until real testimonials are available; remove style="display:none" to restore -->
+    <section class="section" style="display:none">
+      <div class="container">
+        <div class="tcenter reveal">
+          <h2 class="h2">Don't just take our word for <span style="font-style:italic;">it.</span></h2>
+        </div>
+        <div class="grid3">
+          <div class="quote reveal"><p>"Imaginary Space didn't just build us a tool — they transformed how our entire operations team thinks about automation. The ROI was visible within 60 days."</p><div class="by"><div class="nm">James Thornton</div><div class="rl">Chief Operations Officer — Meridian Health Group</div></div></div>
+          <div class="quote reveal" data-delay="120"><p>"We'd tried three other AI vendors before. They were the first team that actually understood our business problem before writing a single line of code."</p><div class="by"><div class="nm">Priya Nair</div><div class="rl">VP of Technology — Apex Logistics</div></div></div>
+          <div class="quote reveal" data-delay="240"><p>"The level of execution is rare. They delivered in weeks what we were planning to spend a year building. Our team uses it every single day."</p><div class="by"><div class="nm">Marcus Webb</div><div class="rl">Head of Digital Transformation — Sable Financial</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="section tight" id="stats" style="border-top:1px solid rgba(255,255,255,0.05);border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div class="container">
+        <div class="stats" id="stats-grid">
+          <div class="stat reveal"><div class="num" data-target="2500" data-suffix="+">0</div><div class="lbl">clients empowered</div></div>
+          <div class="stat reveal" data-delay="100"><div class="num" data-target="40" data-suffix="+">0</div><div class="lbl">successful engagements</div></div>
+          <div class="stat reveal" data-delay="200"><div class="num" data-target="10" data-suffix="+">0</div><div class="lbl">industries served</div></div>
+          <div class="stat reveal" data-delay="300"><div class="num" data-target="12" data-suffix="m">0</div><div class="lbl">community reach</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section class="section">
+      <div class="container">
+        <div class="cs-head">
+          <div class="reveal">
+            <span class="section-label" style="margin-bottom:16px;">Case Studies</span>
+            <h2 class="h2" style="margin-top:16px;">Work that speaks for <span class="hl">itself.</span></h2>
+          </div>
+        </div>
+        <div class="grid3" id="cs-grid"></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container">
+        <div class="faq-wrap">
+          <div class="faq-head reveal">
+            <h2 class="h2">FAQs</h2>
+            <p>Common questions about working with Imaginary Space.</p>
+          </div>
+          <div class="faq-list" id="faq-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="cta">
+      <div class="container">
+        <div class="lines">
+          <p class="reveal">Ready to stop</p>
+          <p class="reveal" data-delay="100">talking and start</p>
+          <p class="reveal accent-grad-text" data-delay="200">delivering?</p>
+        </div>
+        <div class="reveal" data-delay="350">
+          <div class="dashed"><p>We build for those few.</p></div>
+        </div>
+        <div class="reveal" data-delay="450">
+          <a class="btn btn-outline btn-lg" href="#">Get in Touch →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="brand-mark"><img src="assets/logo-dark.png" alt="Imaginary Space" /></span>
+        <span>© 2026 Imaginary Space. All rights reserved.</span>
+      </div>
+      <nav class="footer-links">
+        <a href="#">Terms</a><a href="#">Privacy</a><a href="#">LinkedIn</a><a href="#">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Case study modal -->
+  <div class="cs-overlay" id="cs-overlay" aria-hidden="true">
+    <div class="scrim" data-close></div>
+    <div class="cs-modal" id="cs-modal" role="dialog" aria-modal="true" aria-labelledby="cs-modal-title">
+      <button class="cs-modal-close" id="cs-modal-close" aria-label="Close case study"><i data-lucide="x" style="width:18px;height:18px;"></i></button>
+      <div class="cs-modal-scroll">
+        <div class="cs-modal-hero" id="cs-modal-hero"><img class="cs-shot" id="cs-modal-shot" alt=""><div class="glow"></div><span class="cs-tag" id="cs-modal-tag"></span></div>
+        <div class="cs-modal-body cs-content" id="cs-modal-content"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ── Navbar scroll state ──
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  // ── Marquee ──
+  const LOGOS = ['Meta','SIEMENS','SignalFire','Fifty Three Stations','FELT.','Dude Wipes'];
+  const mq = document.getElementById('marquee');
+  [...LOGOS, ...LOGOS].forEach(n => { const s = document.createElement('div'); s.innerHTML = '<span>'+n+'</span>'; mq.appendChild(s); });
+
+  // ── Process steps ──
+  const STEPS = [
+    { num:'01', icon:'search', title:'Identify', desc:'We audit your operations and map every workflow where AI can create measurable leverage. No guesswork — just a ranked list of opportunities prioritised by impact and feasibility.', detail:['Current-state process mapping','AI opportunity prioritisation','ROI modelling per use case','Executive alignment workshop'] },
+    { num:'02', icon:'wrench', title:'Develop', desc:'We build the solution — whether that\u2019s a custom AI agent, an automation pipeline, or an LLM integration — using the best available tools for your specific context.', detail:['Rapid prototyping in 2-week sprints','Custom model fine-tuning where needed','Integration with your existing stack','Security and compliance review'] },
+    { num:'03', icon:'users', title:'Adopt', desc:'We don\u2019t hand you a tool and disappear. We train your team, measure usage, iterate on feedback, and stay until the solution is embedded in your daily operations.', detail:['Team onboarding and change management','Usage dashboards and success metrics','Ongoing iteration and improvement','Dedicated support post-launch'] },
+  ];
+  const stepsEl = document.getElementById('steps');
+  STEPS.forEach((s,i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'step reveal from-right';
+    wrap.dataset.delay = i * 120;
+    wrap.innerHTML =
+      '<div class="num">'+s.num+'</div>'+
+      '<div class="step-card"><div class="step-top"><div class="step-ico"><i data-lucide="'+s.icon+'" style="width:16px;height:16px;"></i></div>'+
+      '<h3>'+s.title+'</h3></div><p class="desc">'+s.desc+'</p><ul>'+
+      s.detail.map(d=>'<li><span class="dot"></span>'+d+'</li>').join('')+'</ul></div>';
+    stepsEl.appendChild(wrap);
+  });
+
+  // ── FAQ ──
+  const FAQS = [
+    ['What does Imaginary Space actually do?','We identify high-value AI use cases inside your organisation, build the solutions, and ensure they are fully adopted by your team.'],
+    ['How long does a typical engagement take?','Most engagements run 8–16 weeks from discovery to deployment. We move quickly without cutting corners.'],
+    ['Do you work with companies that have no AI experience?','Yes. Most of our clients are starting from zero. We guide you every step of the way.'],
+    ['What industries do you specialise in?','We have delivered projects across healthcare, logistics, finance, retail, and professional services.'],
+    ['What is your pricing model?','We work on a fixed-scope project basis. Reach out and we\u2019ll scope your project in a free discovery call.'],
+    ['Do you offer ongoing support after launch?','Yes. We offer retainer-based support and continuous improvement packages post-launch.'],
+  ];
+  const faqList = document.getElementById('faq-list');
+  FAQS.forEach(([q,a],i) => {
+    const item = document.createElement('div');
+    item.className = 'faq-item reveal' + (i===0 ? ' open':'');
+    item.dataset.delay = Math.min(i*40, 200);
+    item.innerHTML =
+      '<button class="faq-btn"><span class="faq-q">'+q+'</span><span class="faq-chev"><i data-lucide="chevron-down" style="width:16px;height:16px;"></i></span></button>'+
+      '<div class="faq-a"><p>'+a+'</p></div>';
+    item.querySelector('.faq-btn').addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      faqList.querySelectorAll('.faq-item').forEach(x=>x.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    });
+    faqList.appendChild(item);
+  });
+
+  // ── Reveal on scroll ──
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const d = parseInt(e.target.dataset.delay||'0',10);
+        setTimeout(()=> e.target.classList.add('in'), d);
+        revealObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ── Count-up stats ──
+  function countUp(el){
+    const target = +el.dataset.target, suffix = el.dataset.suffix||'', dur = 1600;
+    const start = performance.now();
+    function tick(now){
+      const t = Math.min(1, (now-start)/dur);
+      const eased = 1 - Math.pow(1-t, 3);
+      const val = Math.round(target * eased);
+      el.textContent = val.toLocaleString() + suffix;
+      if(t<1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const statObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ countUp(e.target); statObs.unobserve(e.target); } });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat .num').forEach(el=>statObs.observe(el));
+
+  // ── Scroll-reveal story (word-by-word brighten) ──
+  const story = document.getElementById('story');
+  const storyInner = document.getElementById('story-inner');
+  const PARAS = [
+    { text: "You bought the AI tools. Read the case studies. Attended the webinars." },
+    { text: "But months later, the tools sit unused. The pilots never scaled." },
+    { text: "You're not behind. You're just stuck in the same place everyone gets stuck." },
+    { text: "That's why we built Imaginary Space.", accentFrom: 4 },
+  ];
+  const words = [];
+  PARAS.forEach(p => {
+    const el = document.createElement('p');
+    p.text.split(' ').forEach((word, wi) => {
+      const span = document.createElement('span');
+      span.className = 'w' + (p.accentFrom !== undefined && wi >= p.accentFrom ? ' accent' : '');
+      span.textContent = word;
+      el.appendChild(span);
+      el.appendChild(document.createTextNode(' '));
+      words.push(span);
+    });
+    storyInner.appendChild(el);
+  });
+  const M = words.length;
+  const win = Math.max(6, Math.round(M * 0.16));
+  let storyTicking = false;
+  function updateStory(){
+    const rect = story.getBoundingClientRect();
+    const total = story.offsetHeight - window.innerHeight;
+    let progress = total > 0 ? (-rect.top) / total : 0;
+    progress = Math.max(0, Math.min(1, progress));
+    const head = progress * (M + win);
+    for(let i=0;i<M;i++){
+      let t = (head - i) / win;
+      t = t < 0 ? 0 : t > 1 ? 1 : t;
+      words[i].style.opacity = (0.12 + 0.88 * t).toFixed(3);
+    }
+    storyTicking = false;
+  }
+  function onStoryScroll(){ if(!storyTicking){ storyTicking = true; requestAnimationFrame(updateStory); } }
+  window.addEventListener('scroll', onStoryScroll, { passive: true });
+  window.addEventListener('resize', updateStory);
+  updateStory();
+
+  // ── Case studies (data-driven: add an object to add a study) ──
+  const CASE_STUDIES = [
+    {
+      tag: 'Land Development',
+      title: 'Land Use, Automated',
+      blurb: 'An AI-powered RFI platform that turns days of manual land-use research into seconds.',
+      hero: 'linear-gradient(135deg,#0a1628,#0d2240)',
+      img: 'images/landible.png',
+      sub: 'An AI-powered RFI platform that accepts any template, auto-fills from authoritative sources, and validates with integrated mapping.',
+      metrics: [
+        { v: '428%', k: 'Time saved on RFI completion' },
+        { v: '8+', k: 'Authoritative data sources' },
+      ],
+      problem: "Land developers spend days completing RFIs manually—gathering data from government sources, juggling template formats, and coordinating feedback across teams. Projects stall for weeks, data errors are costly, and smaller teams can't compete without dedicated research staff.",
+      solution: 'An AI-powered RFI platform that accepts any template format, auto-fills fields from 8+ authoritative data sources, and validates with integrated mapping. Hours of manual research are replaced by seconds of automated data collection — with visual overlays for zoning, floodplains, and parcel boundaries, plus export-ready PDFs and CSVs for any agency.',
+      results: '428% time savings on RFI completion and higher data accuracy through automated validation. Teams manage multiple projects without expanding headcount — and smaller firms now compete with enterprise players using the same authoritative data sources.',
+    },
+    {
+      tag: 'Construction · MEP',
+      title: 'Your Drawings, Measured in Minutes',
+      blurb: 'AI that reads MEP drawings and builds a tender-ready Bill of Quantities in minutes.',
+      hero: 'linear-gradient(135deg,#0a1a2e,#0d2e4a)',
+      img: 'images/measure-ai.png',
+      sub: 'One platform that reads your drawings, identifies every component, and builds a structured Bill of Quantities automatically.',
+      metrics: [
+        { v: '< 3 min', k: '10 drawings processed' },
+        { v: '±2%', k: 'Measurement accuracy' },
+        { v: '15+', k: 'Component types detected' },
+      ],
+      problem: 'Engineers receive 2D PDF drawings and spend hours tracing ductwork runs, counting fittings, and building Bills of Quantities by hand — one fitting at a time. Manual processes mean inconsistent accuracy, slow turnaround, and estimators buried in spreadsheets instead of winning work.',
+      solution: 'One platform that reads your drawings, identifies every duct, fitting, damper, and diffuser, and builds a structured Bill of Quantities automatically. Upload your PDFs and let the AI detect, classify, and measure over 15 core component types — review every detection with confidence scores and interactive overlays, then export a fully structured BOQ (NRM, SMM7, or DW144) directly to Excel or PDF.',
+      results: '10 drawings processed in under 3 minutes, measurement accuracy within ±2%, and every quantity traceable back to the exact drawing it came from — moving ventilation teams from manual takeoff to tender-ready output with auditability built in.',
+    },
+    {
+      tag: 'DevTools · SaaS',
+      title: 'Ship Faster. Manage Less.',
+      blurb: 'An AI agent that plans sprints, assigns work, and keeps engineering teams in sync.',
+      hero: 'linear-gradient(135deg,#101a2e,#1a2e4a)',
+      img: 'images/flor-work.png',
+      sub: 'An AI agent that generates sprint plans, assigns tasks by skill and capacity, and keeps everyone in sync — no standups needed.',
+      metrics: [
+        { v: '40%', k: 'Less meeting time' },
+        { v: '3x', k: 'Faster sprint planning' },
+        { v: '500+', k: 'Teams shipping faster' },
+      ],
+      problem: 'Engineering teams are drowning in project management overhead — sprint planning, standups, and status updates consume hours every week. Engineers spend 40% less time coding, sprint planning takes days, and tasks fall through the cracks. Teams without PMs are forced to choose between speed and organization.',
+      solution: 'An AI agent that generates sprint plans in seconds, assigns tasks by skill and capacity, and keeps everyone in sync through Slack — no standups needed. It plugs into GitHub, Jira, Linear, and Notion, detects blockers before they escalate, and runs on enterprise-grade, scalable infrastructure.',
+      results: '40% less meeting time, 3x faster sprint planning, and 95% accuracy on AI-generated task assignments. 500+ teams now ship faster without sacrificing visibility — because the best project management is the kind you never think about.',
+    },
+  ];
+
+  const csGrid = document.getElementById('cs-grid');
+  const esc = (s) => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  CASE_STUDIES.forEach((cs, i) => {
+    const card = document.createElement('article');
+    card.className = 'cs-card reveal';
+    card.tabIndex = 0;
+    card.setAttribute('role','button');
+    card.setAttribute('aria-label', 'Read case study: ' + cs.title);
+    if(i>0) card.dataset.delay = String(i*120);
+    card.innerHTML =
+      '<div class="cs-img" style="background:'+cs.hero+';"><img class="cs-shot" src="'+cs.img+'" alt="'+esc(cs.title)+' product screenshot"><div class="glow"></div><span class="cs-tag">'+esc(cs.tag)+'</span></div>'+
+      '<div class="cs-body"><p class="kicker">Case Study</p><h3>'+esc(cs.title)+'</h3><p>'+esc(cs.blurb)+'</p>'+
+      '<span class="cs-more">Read case study <i data-lucide="arrow-right"></i></span></div>';
+    card.addEventListener('click', () => openCase(i, card));
+    card.addEventListener('keydown', (e) => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openCase(i, card); } });
+    csGrid.appendChild(card);
+    revealObs.observe(card);
+  });
+
+  // ── FLIP "magic-move" modal ──
+  const csOverlay = document.getElementById('cs-overlay');
+  const csModal = document.getElementById('cs-modal');
+  const csHero = document.getElementById('cs-modal-hero');
+  const csTag = document.getElementById('cs-modal-tag');
+  const csContent = document.getElementById('cs-modal-content');
+  const csScroll = csModal.querySelector('.cs-modal-scroll');
+  let activeCard = null, scrollY = 0;
+
+  function buildContent(cs){
+    const metrics = cs.metrics.map(m => '<div class="cs-metric"><div class="v">'+esc(m.v)+'</div><div class="k">'+esc(m.k)+'</div></div>').join('');
+    csContent.innerHTML =
+      '<p class="kicker">Case Study</p>'+
+      '<h3 id="cs-modal-title">'+esc(cs.title)+'</h3>'+
+      '<p class="cs-sub">'+esc(cs.sub)+'</p>'+
+      '<div class="cs-metrics">'+metrics+'</div>'+
+      '<div class="cs-block"><h4>The Problem</h4><p>'+esc(cs.problem)+'</p></div>'+
+      '<div class="cs-block"><h4>The Solution</h4><p>'+esc(cs.solution)+'</p></div>'+
+      '<div class="cs-block"><h4>The Results</h4><p>'+esc(cs.results)+'</p></div>';
+  }
+
+  function openCase(i, cardEl){
+    const cs = CASE_STUDIES[i];
+    activeCard = cardEl;
+    csHero.style.background = cs.hero;
+    csHero.style.backgroundSize = 'cover';
+    csHero.style.backgroundPosition = 'center';
+    const csShot = document.getElementById('cs-modal-shot'); csShot.src = cs.img; csShot.alt = cs.title + ' product screenshot';
+    csTag.textContent = cs.tag;
+    buildContent(cs);
+    csScroll.scrollTop = 0;
+
+    // lock page scroll (compensate for scrollbar)
+    scrollY = window.scrollY;
+    const sbw = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if(sbw>0) document.body.style.paddingRight = sbw + 'px';
+
+    csOverlay.classList.add('open');
+    csOverlay.setAttribute('aria-hidden','false');
+    lucide.createIcons();
+
+    // FLIP: start at the card's rect, animate to natural centered rect
+    const cardR = cardEl.getBoundingClientRect();
+    csModal.style.transition = 'none';
+    csModal.style.transform = 'none';
+    const modalR = csModal.getBoundingClientRect();
+    const sx = cardR.width / modalR.width;
+    const sy = cardR.height / modalR.height;
+    const tx = cardR.left - modalR.left;
+    const ty = cardR.top - modalR.top;
+    csModal.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+sx+','+sy+')';
+    csModal.getBoundingClientRect(); // reflow
+    requestAnimationFrame(() => {
+      csModal.style.transition = 'transform .46s cubic-bezier(.22,1,.36,1)';
+      csModal.style.transform = 'translate(0,0) scale(1)';
+    });
+    setTimeout(() => csModal.querySelector('#cs-modal-close').focus(), 120);
+  }
+
+  let closing = false;
+  function closeCase(){
+    if(!activeCard || closing) return;
+    closing = true;
+    const cardR = activeCard.getBoundingClientRect();
+    const modalR = csModal.getBoundingClientRect();
+    const sx = cardR.width / modalR.width;
+    const sy = cardR.height / modalR.height;
+    const tx = cardR.left - modalR.left;
+    const ty = cardR.top - modalR.top;
+    csModal.style.transition = 'transform .4s cubic-bezier(.4,0,.2,1)';
+    csModal.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+sx+','+sy+')';
+    csOverlay.classList.remove('open');
+    csOverlay.setAttribute('aria-hidden','true');
+    const card = activeCard;
+    setTimeout(() => {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+      csModal.style.transition = 'none';
+      csModal.style.transform = 'none';
+      closing = false;
+      if(card && typeof card.focus === 'function') card.focus();
+      activeCard = null;
+    }, 400);
+  }
+
+  csOverlay.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeCase));
+  document.getElementById('cs-modal-close').addEventListener('click', closeCase);
+  document.addEventListener('keydown', (e) => { if(e.key==='Escape' && csOverlay.classList.contains('open')) closeCase(); });
+
+  lucide.createIcons();
+</script>
+</body>
+</html>
