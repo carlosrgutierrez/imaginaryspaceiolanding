@@ -9,7 +9,7 @@ import Analytics from "@/components/layout/Analytics";
 import { SITE_URL } from "@/lib/constants";
 
 const poppins = Poppins({
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins",
   subsets: ["latin"],
   display: "swap",

@@ -2,7 +2,7 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "outline" | "solid" | "ghost";
+  variant?: "outline" | "solid" | "light" | "ghost";
   size?: "sm" | "md" | "lg";
 }
 
@@ -17,6 +17,8 @@ const VARIANT: Record<NonNullable<ButtonProps["variant"]>, string> = {
     "border border-white/80 bg-transparent text-text-primary uppercase tracking-[0.14em] hover:bg-white hover:text-bg-primary",
   solid:
     "bg-accent-grad text-bg-primary uppercase tracking-[0.14em] hover:brightness-110",
+  light:
+    "border border-white bg-white text-bg-primary uppercase tracking-[0.14em] hover:bg-white/90",
   ghost:
     "bg-transparent text-text-secondary hover:text-text-primary",
 };

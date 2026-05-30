@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ChevronRight, Menu, X } from "lucide-react";
 import Button from "@/components/ui/Button";
 import Logo from "@/components/ui/Logo";
 
@@ -30,7 +30,9 @@ export default function Navbar() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   return (
@@ -42,45 +44,44 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-screen-xl mx-auto px-6 lg:px-8 h-16 lg:h-20 flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-16 lg:h-[4.5rem] flex items-center justify-between">
           <Logo />
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`font-sans text-sm transition-colors ${
-                  pathname.startsWith(href)
-                    ? "text-text-primary"
-                    : "text-text-secondary hover:text-text-primary"
-                }`}
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
+          <div className="hidden md:flex items-center gap-9 lg:gap-10 ml-auto">
+            <nav className="flex items-center gap-9 lg:gap-10">
+              {NAV_LINKS.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className={`font-sans text-sm transition-colors ${
+                    pathname.startsWith(href)
+                      ? "text-text-primary"
+                      : "text-text-secondary hover:text-text-primary"
+                  }`}
+                >
+                  {label}
+                </Link>
+              ))}
+            </nav>
 
-          <div className="flex items-center gap-4">
-            <Link href="/work-with-us" className="hidden md:block">
-              <Button variant="outline" size="sm">
-                Get in Touch &rarr;
+            <Link href="/work-with-us">
+              <Button variant="light" size="sm" className="gap-1.5">
+                Get in Touch
+                <ChevronRight size={14} strokeWidth={2.5} aria-hidden />
               </Button>
             </Link>
-
-            <button
-              className="md:hidden text-text-primary p-1 -mr-1"
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open navigation menu"
-            >
-              <Menu size={22} />
-            </button>
           </div>
+
+          <button
+            className="md:hidden text-text-primary p-1 -mr-1 ml-auto"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open navigation menu"
+          >
+            <Menu size={22} />
+          </button>
         </div>
       </header>
 
-      {/* Mobile fullscreen overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -125,8 +126,9 @@ export default function Navbar() {
                 transition={{ delay: 0.05 + NAV_LINKS.length * 0.08 }}
               >
                 <Link href="/work-with-us" onClick={() => setMobileOpen(false)}>
-                  <Button variant="outline" size="md">
-                    Get in Touch &rarr;
+                  <Button variant="light" size="md" className="gap-1.5">
+                    Get in Touch
+                    <ChevronRight size={16} strokeWidth={2.5} aria-hidden />
                   </Button>
                 </Link>
               </motion.div>

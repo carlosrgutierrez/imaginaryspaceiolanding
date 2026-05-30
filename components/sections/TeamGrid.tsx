@@ -1,16 +1,11 @@
 import Image from "next/image";
 import FadeInView from "@/components/animations/FadeInView";
-import SectionLabel from "@/components/ui/SectionLabel";
 import { TEAM_MEMBERS } from "@/lib/constants";
 
 export default function TeamGrid() {
   return (
     <section className="py-[7.5rem] border-t border-white/5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
-        <FadeInView className="mb-14">
-          <SectionLabel>The Team</SectionLabel>
-        </FadeInView>
-
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
           {TEAM_MEMBERS.map((member, i) => (
             <FadeInView key={member.name} delay={i * 0.08}>

@@ -1,34 +1,54 @@
 import FadeInView from "@/components/animations/FadeInView";
-import AccentHighlight from "@/components/ui/AccentHighlight";
+import {
+  HERO_CLIENTS,
+  HERO_CLIENTS_EYEBROW,
+  HERO_HEADLINE,
+  HERO_SUBTITLE,
+} from "@/lib/constants";
 
 interface HeroSectionProps {
-  headline?: React.ReactNode;
   subtitle?: string;
 }
 
-export default function HeroSection({
-  headline,
-  subtitle,
-}: HeroSectionProps) {
+export default function HeroSection({ subtitle }: HeroSectionProps) {
   return (
-    <section className="relative min-h-[92vh] flex flex-col items-center justify-center pt-20 pb-12 px-6 text-center">
-      <FadeInView>
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-text-primary leading-[1.5] max-w-4xl">
-          {headline ?? (
-            <>
-              We don&apos;t just talk AI.
-              <br />
-              We <AccentHighlight>deliver</AccentHighlight> it.
-            </>
-          )}
-        </h1>
-      </FadeInView>
+    <section className="hero-bg relative flex min-h-svh flex-col px-6 pt-[4.5rem] lg:px-10">
+      {/* Headline + subtitle — centered in the space above the logo bar */}
+      <div className="relative z-[1] mx-auto flex w-full max-w-[1400px] flex-1 flex-col items-center justify-center pb-[min(10vh,5rem)] pt-4 text-center sm:pt-6">
+        <FadeInView className="w-full max-w-[55.5rem] lg:max-w-none">
+          <h1 className="text-h1-gradient font-serif text-[clamp(2rem,5vw,2.5rem)] leading-[1.1] tracking-[-0.005em] pb-[7px] sm:text-[clamp(2.25rem,4vw,3rem)] lg:text-[4rem] lg:whitespace-nowrap [text-wrap:normal]">
+            {HERO_HEADLINE}
+          </h1>
+        </FadeInView>
 
-      <FadeInView delay={0.2} className="mt-8 max-w-lg">
-        <p className="font-sans text-text-secondary text-lg leading-relaxed">
-          {subtitle ??
-            "Enterprise AI consulting that moves from strategy to production — without the pilot purgatory."}
+        <FadeInView delay={0.15} className="mt-7 w-full max-w-[50rem] sm:mt-8">
+          <p className="font-serif text-[1.25rem] font-light leading-[1.6] text-text-secondary/85">
+            {subtitle ?? HERO_SUBTITLE}
+          </p>
+        </FadeInView>
+      </div>
+
+      {/* Logo bar — bottom of first screen, Morningside-style */}
+      <FadeInView
+        delay={0.3}
+        className="relative z-[1] mx-auto flex w-full max-w-[1400px] shrink-0 flex-col items-center pb-10 sm:pb-12 lg:pb-14"
+      >
+        <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-text-muted/80">
+          {HERO_CLIENTS_EYEBROW}
         </p>
+
+        <ul
+          className="mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-12 gap-y-5 sm:mt-8 sm:gap-x-16 lg:gap-x-16"
+          aria-label="Trusted by"
+        >
+          {HERO_CLIENTS.map((name) => (
+            <li key={name} className="flex h-16 items-center sm:h-20">
+              <span className="select-none whitespace-nowrap font-sans text-base font-medium tracking-[0.04em] text-white/45 sm:text-lg">
+                {name}
+              </span>
+            </li>
+          ))}
+        </ul>
       </FadeInView>
     </section>
   );

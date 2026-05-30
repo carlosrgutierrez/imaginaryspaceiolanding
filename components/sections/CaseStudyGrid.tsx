@@ -4,12 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight } from "lucide-react";
 import FadeInView from "@/components/animations/FadeInView";
-import SectionLabel from "@/components/ui/SectionLabel";
-import AccentHighlight from "@/components/ui/AccentHighlight";
-import { CASE_STUDIES, type CaseStudy } from "@/lib/constants";
+import { CASE_STUDIES, CASE_STUDIES_SECTION, type CaseStudy } from "@/lib/constants";
 
-const TAG =
-  "z-[2] font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-accent/70 bg-accent/10 border border-accent/20 rounded-full px-3 py-1.5 whitespace-nowrap";
 const SCRIM =
   "absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,rgba(8,10,14,0.30)_0%,rgba(8,10,14,0.10)_42%,rgba(8,10,14,0.76)_100%)]";
 
@@ -33,13 +29,10 @@ export default function CaseStudyGrid() {
   return (
     <section className="py-[7.5rem] border-t border-white/5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
-        <FadeInView className="flex items-end justify-between gap-4 mb-14 flex-wrap">
-          <div>
-            <SectionLabel className="mb-4">Case Studies</SectionLabel>
-            <h2 className="font-serif text-4xl lg:text-5xl text-text-primary leading-[1.5]">
-              Work that speaks for <AccentHighlight>itself.</AccentHighlight>
-            </h2>
-          </div>
+        <FadeInView className="mb-14 text-center">
+          <h2 className="font-serif text-4xl text-text-primary leading-[1.3] lg:text-5xl">
+            {CASE_STUDIES_SECTION.title}
+          </h2>
         </FadeInView>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
@@ -70,15 +63,9 @@ export default function CaseStudyGrid() {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className={SCRIM} />
-                  <span className={`absolute bottom-3.5 left-3.5 ${TAG}`}>
-                    {cs.label}
-                  </span>
                 </motion.div>
 
                 <div className="flex flex-1 flex-col p-6">
-                  <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted mb-2.5">
-                    Case Study
-                  </p>
                   <motion.h3
                     layoutId={`cs-title-${cs.slug}`}
                     className="font-serif text-xl text-text-primary leading-snug mb-3 min-h-[3.25rem] line-clamp-2 transition-colors group-hover:text-accent"
@@ -140,9 +127,6 @@ export default function CaseStudyGrid() {
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(180deg,transparent_40%,rgba(10,10,10,0.55)_100%)]" />
-                  <span className={`absolute bottom-3.5 left-3.5 ${TAG}`}>
-                    {active.label}
-                  </span>
                 </motion.div>
 
                 <motion.div
@@ -151,9 +135,6 @@ export default function CaseStudyGrid() {
                   transition={{ delay: 0.12, duration: 0.3 }}
                   className="p-8 sm:p-10"
                 >
-                  <p className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-text-muted mb-2.5">
-                    Case Study
-                  </p>
                   <motion.h3
                     layoutId={`cs-title-${active.slug}`}
                     className="font-serif text-2xl sm:text-3xl text-text-primary leading-tight mb-3"

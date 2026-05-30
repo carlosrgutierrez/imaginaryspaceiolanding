@@ -2,44 +2,119 @@
 
 Marketing website for **Imaginary Space**, an AI & Automation consulting firm.
 Dark-first, minimal, single blue gradient accent, premium scroll animations.
-Source repo: `carlosrtierrez/imaginaryspaceiolanding` (Next.js 15 + Tailwind 4 + Framer Motion). The `.tsx` source is imported under the project root (`app/`, `components/`, `lib/`, `styles/`).
 
-## Deliverables (the files we actively design in)
-- **`Styleguide.html`** — living component/token reference (sidebar nav). Edit this when refining the design system.
-- **`Homepage.html`** — full static recreation of the homepage with all sections + scroll animations.
-- **`assets/logo-dark.png`** / **`assets/logo-white.png`** — the logo mark, trimmed & transparent (dark = for the light-blue accent badge; white = standalone on dark).
+## Repo & paths
+
+| Item | Value |
+|------|--------|
+| **Local path** | `/Users/droz/Documents/uploads/MorningSpace/` |
+| **Canonical GitHub** | `carlosrgutierrez/imaginaryspaceiolanding` (main) |
+| **Fork** | `carlosrtierrez/imaginaryspaceiolanding` |
+| **Branch** | `main` @ `958d195` (fork + upstream synced via force-push) |
+| **Git remotes** | `origin` → fork, `upstream` → canonical |
+| **GitHub account** | `carlosrtierrez` |
+| **Contact** | `carlos@imaginaryspace.ai` |
+
+Stack: **Next.js 15**, **Tailwind 4**, **Framer Motion**, **TypeScript**.
+
+Static HTML references (design source): `Styleguide.html`, `Homepage.html` in repo root.
+
+## Live deployment (Vercel — as of 2026-05-29)
+
+| Item | Value |
+|------|--------|
+| **Host** | Vercel (free tier) |
+| **Vercel project** | `imaginaryspacelanding` |
+| **Vercel URL** | https://imaginaryspaceiolanding.vercel.app |
+| **Custom domain** | `imaginaryspace.io` (GoDaddy DNS) |
+| **DNS** | A record `@` → `216.198.79.1` (Vercel new IP). GoDaddy authoritative NS correct. Propagation was in progress; global resolvers (8.8.8.8) resolving to Vercel. |
+| **Build** | Default Vercel settings — `next build`, no custom output dir |
+| **Env vars on Vercel** | `NOTION_API_KEY`, `NOTION_DATABASE_ID`, (+ optional `NOTION_DATA_SOURCE_ID`, `NEXT_PUBLIC_GA_MEASUREMENT_ID`) |
+
+Firebase Spark / App Hosting was considered and rejected (no Blaze budget). `apphosting.yaml` kept as optional reference only.
+
+## Site structure (Next.js app)
+
+| Route | Page |
+|-------|------|
+| `/` | Homepage |
+| `/services` | Identify / Develop / Adopt tabs + case study grid |
+| `/team` | Leadership + team grid (photos wired) |
+| `/work-with-us` | Contact form |
+| `/api/contact` | POST → Notion CRM (serverless on Vercel) |
+
+Key files:
+- `lib/constants.ts` — copy, footer links, case studies, team
+- `lib/contact.ts` — form validation
+- `lib/notion-config.ts`, `lib/notion-leads.ts` — Notion CRM mapping
+- `app/api/contact/route.ts` — rate-limited API route
+- `components/sections/ContactSplit.tsx` — contact form UI
+- `components/sections/ServiceTabs.tsx` — services tabs
+- `components/layout/Analytics.tsx` — GA4 + cookie consent (only if `NEXT_PUBLIC_GA_MEASUREMENT_ID` set)
+- `components/ui/Logo.tsx` — brand mark in navbar/footer
+
+Local dev: `npm run dev` (or `npm run dev:clean` if stale `.next` causes 500/CSS 404).
+QA script: `npm run qa:dev`. Build: `npm run build`.
+
+## Notion CRM (contact form)
+
+- Database: **CRM - IMS**
+- `NOTION_DATABASE_ID`: `65887d70575582e4b2b401a44da5a369`
+- `NOTION_DATA_SOURCE_ID`: `16087d70-5755-8364-992a-8781dc09e33c` (default in code)
+- Mapping: Name, Email, Work Email, Company (size), Org (company name), Title (role), EV (budget), Context (project + website), Stage = **Website**, Platform = **Other**
+- Local credentials in `.env.local` (gitignored). API tested OK locally.
+- **TODO tomorrow:** Confirm production form on `imaginaryspace.io/work-with-us` creates Notion leads after Vercel env vars were set.
 
 ## Brand tokens (authoritative — use these exact values)
+
 - Background: `#0A0A0A` (primary), `#111111` (secondary), `#1A1A1A` (card)
 - Text: `#FFFFFF` / `#A1A1AA` / `#71717A`
-- Card border: `rgba(255,255,255,0.08)` (hairline); hover → `rgba(255,255,255,0.16)`
-- **Accent = a blue gradient**: `linear-gradient(135deg, #60a5fa 40%, #bfdbfe 100%)`
-  - Use the GRADIENT for fills (buttons, badges, highlight blocks, active pills) and clipped text (section labels, eyebrows).
-  - Use the FLAT fallback `#60a5fa` for anything needing a color value: borders, icon strokes, dots, focus ring, tints (`rgba(96,165,250,…)`).
-  - `--accent-light: #bfdbfe`, `--accent-dark: #385bc7` (hover), `--accent-bg: rgba(96,165,250,0.15)`
-  - CTA gradient: `linear-gradient(180deg,#0A0A0A 0%,#0A1E3C 50%,#0D2E5C 100%)`
-- Fonts: **Poppins** (display/headings, 600, -0.02em tracking) + **Plus Jakarta Sans** (body). Google Fonts CDN.
-- Radii: 8px input, 12px card, 16px card-lg, pill. Section padding 120px desktop.
-- Texture: subtle SVG film-grain overlay (opacity ~0.035). Soft blue "diffuse bloom" behind hero.
+- Card border: `rgba(255,255,255,0.08)`; hover → `rgba(255,255,255,0.16)`
+- **Accent = blue gradient**: `linear-gradient(135deg, #60a5fa 40%, #bfdbfe 100%)`
+  - Gradient for fills (buttons, badges, highlights) and clipped text (labels, eyebrows)
+  - Flat `#60a5fa` for borders, icon strokes, focus rings, tints
+- Fonts: **Poppins** (display) + **Plus Jakarta Sans** (body)
+- No emoji in product copy. Lucide icons only. Dark theme always.
 
-## Conventions
-- No emoji in product copy. Sentence case for UI; UPPERCASE TRACKED for micro-labels.
-- Icons: Lucide (CDN). Don't substitute other icon sets.
-- Accent-highlight a word at most once per section.
-- Keep the dark theme. Don't invent new accent colors.
+## Decisions / completed work
 
-## Decisions / state
-- Renamed Nexus AI → **Imaginary Space** everywhere.
-- Stats Row = **50+ AI products shipped · 6 Weeks average MVP delivery · 10x faster than traditional agencies** (3 stats, hairline dividers).
-- Logo marquee = Meta · SIEMENS · SignalFire · Fifty Three Stations · FELT. · Dude Wipes (text wordmarks; swap for real art when available).
-- **Testimonials are HIDDEN** (no real ones yet) — `style="display:none"` on the section in both files; remove to restore.
-- Hero headline line-height opened to 1.5 so the highlight box doesn't collide with the line above.
-- Case studies are the three real products — **Landible** (Land Use, Automated), **Measure AI** (Your Drawings, Measured in Minutes), **Flor.work** (Ship Faster. Manage Less.) — as data-driven cards that expand into a detail modal (Problem / Solution / Results + metric chips). Card images live in `public/images/` and a dark scrim keeps the category tag legible.
-- FAQ heading is plain "FAQs" (no boxed letter).
+- Nexus AI → **Imaginary Space** everywhere
+- Stats: 50+ AI products · 6 Weeks MVP · 10x faster
+- Logo marquee: Meta, SIEMENS, SignalFire, Fifty Three Stations, FELT., Dude Wipes
+- **Testimonials hidden** (no real ones yet)
+- Case studies: Landible, Measure AI, Flor.work — modal detail cards
+- Team page photos + copy updated
+- Services tabs with full copy; case study grid before CTA
+- Footer: logo, Terms/Privacy/LinkedIn/Contact links
+- Equal-height case study cards (flex + line-clamp)
+- Fork force-pushed to upstream `main` (unrelated histories replaced)
 
-## Known follow-ups
-- Build Services / Team / Work With Us pages to match.
-- Replace marquee wordmarks with real logo SVG/PNG.
-- Brand propagated into the real repo ✅ — blue gradient accent (`globals.css` tokens + `--accent-grad` + `.bg-accent-grad`/`.text-accent-grad` helpers), `AccentHighlight.tsx`, `SectionLabel.tsx`, `Button.tsx`, `HeroSection.tsx` leading, Nexus AI → Imaginary Space everywhere, and `CaseStudyGrid.tsx`/`FAQSection.tsx` updated. STILL TODO: swap the real logo art into `Navbar.tsx`/`Footer.tsx`, and update the domain/email placeholders (`layout.tsx` `metadataBase` + `ContactSplit.tsx` `hello@nexus-ai.co`) once the real domain is known.
+## Domain / URL mismatches — fix tomorrow
 
-See `HANDOFF.md` for a fuller status report.
+Code still references domains that differ from live `.io`:
+
+| Constant / link | Current value | Live domain |
+|-----------------|---------------|-------------|
+| `SITE_URL` in `lib/constants.ts` | `https://imaginaryspace.co` | `https://imaginaryspace.io` |
+| Footer Terms/Privacy | `imaginaryspace.ai` | may be intentional (legal on `.ai`) |
+| `metadataBase` in `layout.tsx` | check vs `.io` | update if SEO should match live URL |
+
+Optional: add `www.imaginaryspace.io` in Vercel + GoDaddy CNAME `www` → `cname.vercel-dns.com`.
+
+## Known follow-ups (priority for next session)
+
+1. **Verify live site** at https://imaginaryspace.io — all pages + contact form → Notion
+2. **Update `SITE_URL` / metadata** to `imaginaryspace.io` if confirmed canonical
+3. **Test GA4** if measurement ID added on Vercel
+4. Replace marquee wordmarks with real logo SVG/PNG
+5. Restore testimonials section when real quotes exist
+6. GoDaddy **Products** tab: remove any leftover “Coming Soon” / Website Builder if still attached
+
+## Conventions for agents
+
+- Minimize scope; match existing patterns in `components/` and `lib/`
+- Don't commit `.env.local` or secrets
+- Only commit when user asks
+- Vercel deploys auto from `carlosrgutierrez/imaginaryspaceiolanding` `main`
+
+See `HANDOFF.md` for fuller status. Plan doc at `/Users/droz/Documents/uploads/CURSOR_PLAN.md`.

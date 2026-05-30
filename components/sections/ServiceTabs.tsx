@@ -1,243 +1,186 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import FadeInView from "@/components/animations/FadeInView";
+import { CircleDot, Layers, Hexagon, type LucideIcon } from "lucide-react";
+import { SERVICES_PHASES, type ServicePhase } from "@/lib/constants";
 
-const TABS = [
-  {
-    id: "identify",
-    label: "1. Identify",
-    step: "Step 01",
-    title: "Identify",
-    subtitle: "Decide what's actually worth building",
-    description:
-      "Before anything gets built, we get aligned. We take the time to understand how work really happens inside your organisation — where time is lost, decisions slow down, and manual effort piles up. Then we narrow everything down to the small set of opportunities that will create real, measurable impact. This phase ensures you're not guessing, and not wasting time building the wrong thing.",
-    whatWeDo: [
-      {
-        title: "Executive Alignment Workshops",
-        description:
-          "Get leadership aligned on priorities, constraints, and what success actually looks like.",
-      },
-      {
-        title: "Employee & Stakeholder Interviews",
-        description:
-          "Speak with the people doing the work to uncover bottlenecks, inefficiencies, and hidden opportunities.",
-      },
-      {
-        title: "ROI Modeling & Business Case Design",
-        description:
-          "Pressure-test ideas early and focus only on what's worth the investment.",
-      },
-      {
-        title: "Prioritization Mapping",
-        description:
-          "Stack-rank opportunities by impact and effort so everyone knows where to start.",
-      },
-      {
-        title: "AI Readiness & Diagnostics Report",
-        description:
-          "A clear view of where you're ready now, what needs work, and what should wait.",
-      },
-    ],
-  },
-  {
-    id: "develop",
-    label: "2. Develop",
-    step: "Step 02",
-    title: "Develop",
-    subtitle: "Build it right so it works from day one.",
-    description:
-      "Once priorities are clear, we move into execution. This is where strategy becomes reality. We plan and build AI systems that integrate cleanly into your existing tools and workflows — designed for reliability, security, and real-world use. No fragile demos. No science projects.",
-    whatWeDo: [
-      {
-        title: "Scoping & Technical Architecture",
-        description:
-          "Translate priorities into a clear build plan — defining scope, data flows, integrations, and success criteria upfront.",
-      },
-      {
-        title: "Data & Systems Integration",
-        description:
-          "Embed AI into your existing stack so it fits naturally into how work already happens.",
-      },
-      {
-        title: "Proof of Concept → Production Build",
-        description:
-          "Build quickly, test in real workflows, then harden what works into a production-ready system.",
-      },
-      {
-        title: "Security, Governance & Reliability Design",
-        description:
-          "Implement access controls, monitoring, and guardrails so systems are safe, auditable, and dependable.",
-      },
-      {
-        title: "Performance Tuning & Optimization",
-        description:
-          "Improve accuracy, speed, and cost efficiency before anything is rolled out broadly.",
-      },
-    ],
-  },
-  {
-    id: "adopt",
-    label: "3. Adopt",
-    step: "Step 03",
-    title: "Adopt",
-    subtitle: "Make AI part of how work actually gets done",
-    description: [
-      "Shipping software isn't success.",
-      "Adoption is. In this phase, we work side by side with your teams to ensure new systems are understood, trusted, and used every day. The goal isn't a \"handover\" — it's ownership.",
-    ],
-    whatWeDo: [
-      {
-        title: "Pilot Launch & Controlled Rollout",
-        description:
-          "Introduce systems intentionally, gather feedback, and refine before scaling.",
-      },
-      {
-        title: "AI Enablement Sessions",
-        description:
-          "Hands-on training so teams know when and how to use what's been built.",
-      },
-      {
-        title: "Workflow Integration Support",
-        description:
-          "Embed AI into existing routines without slowing anyone down.",
-      },
-      {
-        title: "Performance Tracking & Ongoing Optimization",
-        description:
-          "Measure impact, improve continuously, and lock in the gains.",
-      },
-    ],
-  },
-] as const;
+/** Centered column — Morningside side margins */
+const CONTENT_WIDTH = "mx-auto w-full max-w-4xl px-6 lg:max-w-5xl lg:px-8";
 
-type TabId = (typeof TABS)[number]["id"];
+const PHASE_ICONS: Record<ServicePhase["id"], LucideIcon> = {
+  identify: CircleDot,
+  develop: Layers,
+  adopt: Hexagon,
+};
+
+function tabFromHash(hash: string): ServicePhase["id"] | null {
+  const id = hash.replace("#", "");
+  if (!id || id === "service-tabs") return null;
+  return SERVICES_PHASES.find((p) => p.id === id)?.id ?? null;
+}
+
+function PhaseNav({
+  active,
+  onSelect,
+}: {
+  active: ServicePhase["id"];
+  onSelect: (id: ServicePhase["id"]) => void;
+}) {
+  return (
+    <nav
+      className="border-b border-white/5 bg-bg-primary"
+      aria-label="Service phases"
+    >
+      <div
+        className={`${CONTENT_WIDTH} flex justify-center gap-8 py-5 sm:gap-12 lg:gap-16`}
+      >
+        {SERVICES_PHASES.map((phase) => {
+          const isActive = active === phase.id;
+          return (
+            <button
+              key={phase.id}
+              type="button"
+              onClick={() => onSelect(phase.id)}
+              className={`relative flex flex-col items-center font-sans text-sm transition-colors sm:text-base ${
+                isActive ? "text-accent" : "text-text-muted hover:text-text-secondary"
+              }`}
+            >
+              {phase.navLabel}
+              {isActive && (
+                <span className="mt-1 text-xs leading-none text-accent" aria-hidden>
+                  ⌃
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+function ServicePhasePanel({ phase }: { phase: ServicePhase }) {
+  const Icon = PHASE_ICONS[phase.id];
+  const paragraphs = Array.isArray(phase.description)
+    ? phase.description
+    : [phase.description];
+
+  return (
+    <motion.div
+      key={phase.id}
+      id={`tabpanel-${phase.id}`}
+      role="tabpanel"
+      aria-labelledby={`tab-btn-${phase.id}`}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -12 }}
+      transition={{ duration: 0.28, ease: "easeInOut" }}
+    >
+      <div className="rounded-2xl border border-accent/25 bg-bg-card/30 p-6 sm:p-8 lg:p-12">
+        <div className="flex flex-col gap-8 lg:flex-row lg:gap-14">
+          <div className="flex shrink-0 justify-center lg:justify-start">
+            <Icon
+              strokeWidth={1}
+              className="h-24 w-24 text-white/85 sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+              aria-hidden
+            />
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <h2 className="font-serif text-3xl leading-tight text-text-primary sm:text-4xl lg:text-5xl">
+              <sup className="mr-1 align-super text-base font-normal text-accent sm:text-lg">
+                {phase.number}
+              </sup>
+              <span className="text-accent-grad">{phase.title}</span>
+            </h2>
+
+            <p className="mt-3 font-sans text-lg text-text-primary sm:text-xl">
+              {phase.subtitle}
+            </p>
+
+            <div className="mt-6 space-y-4">
+              {paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph.slice(0, 24)}
+                  className="font-sans text-base leading-relaxed text-text-secondary sm:text-lg"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 border-t border-white/8 pt-8 sm:mt-12 sm:pt-10">
+          <h3 className="mb-6 font-serif text-2xl text-text-primary sm:text-3xl">
+            What <span className="text-accent">we do</span>
+          </h3>
+
+          <ul className="flex flex-col gap-5 sm:gap-6">
+            {phase.whatWeDo.map((item) => (
+              <li
+                key={item.title}
+                className="flex items-start gap-3 font-sans text-[15px] leading-snug sm:text-base"
+              >
+                <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-text-primary/70" />
+                <div>
+                  <p className="font-medium text-text-primary">{item.title}</p>
+                  <p className="mt-1 leading-relaxed text-text-secondary">
+                    {item.description}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
 
 export default function ServiceTabs() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const hashTab = searchParams.get("tab");
-  const initial = TABS.find((t) => t.id === hashTab) ?? TABS[0];
-  const [active, setActive] = useState<TabId>(initial.id);
+  const queryTab = searchParams.get("tab");
+  const initial = SERVICES_PHASES.find((p) => p.id === queryTab) ?? SERVICES_PHASES[0];
+  const [active, setActive] = useState<ServicePhase["id"]>(initial.id);
 
-  const activeTab = TABS.find((t) => t.id === active) ?? TABS[0];
+  const activePhase =
+    SERVICES_PHASES.find((p) => p.id === active) ?? SERVICES_PHASES[0];
 
-  function select(id: TabId) {
+  function select(id: ServicePhase["id"]) {
     setActive(id);
-    router.replace(`${pathname}?tab=${id}`, { scroll: false });
+    router.replace(`${pathname}#${id}`, { scroll: false });
   }
 
   useEffect(() => {
-    const id = searchParams.get("tab");
-    const tab = TABS.find((t) => t.id === id);
+    const fromQuery = searchParams.get("tab");
+    const fromHash = tabFromHash(window.location.hash);
+    const id = fromHash ?? fromQuery;
+    const tab = SERVICES_PHASES.find((p) => p.id === id);
     if (tab) setActive(tab.id);
   }, [searchParams]);
 
+  useEffect(() => {
+    function onHashChange() {
+      const tab = tabFromHash(window.location.hash);
+      if (tab) setActive(tab);
+    }
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
   return (
-    <section id="service-tabs" className="py-[7.5rem] border-t border-white/5">
-      <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
-        {/* Tab bar — scrolls horizontally on mobile, wraps on sm+ */}
-        <FadeInView className="mb-16">
-        <div
-          className="flex gap-2 overflow-x-auto pb-1 scrollbar-none sm:flex-wrap"
-          role="tablist"
-          aria-label="Service phases"
-        >
-          {TABS.map((tab) => (
-            <button
-              key={tab.id}
-              id={`tab-btn-${tab.id}`}
-              role="tab"
-              aria-selected={active === tab.id}
-              aria-controls={`tabpanel-${tab.id}`}
-              onClick={() => select(tab.id)}
-              className={`shrink-0 font-sans text-sm font-medium px-5 py-2.5 rounded-full border transition-all duration-200 ${
-                active === tab.id
-                  ? "bg-accent-grad text-bg-primary border-accent"
-                  : "bg-transparent text-text-secondary border-white/10 hover:border-white/30 hover:text-text-primary"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-        </FadeInView>
+    <section id="service-tabs" className="pb-16 sm:pb-20">
+      <PhaseNav active={active} onSelect={select} />
 
-        {/* Content */}
+      <div className={`${CONTENT_WIDTH} py-10 sm:py-12`}>
         <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            id={`tabpanel-${active}`}
-            role="tabpanel"
-            aria-labelledby={`tab-btn-${active}`}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -16 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-          >
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
-              {/* Left */}
-              <div>
-                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-accent mb-4">
-                  {activeTab.step}
-                </p>
-                <h2 className="font-serif text-4xl lg:text-5xl text-text-primary leading-[1.5] mb-3">
-                  {activeTab.title}
-                </h2>
-                {"subtitle" in activeTab && activeTab.subtitle && (
-                  <p className="font-sans text-xl text-text-secondary leading-snug mb-6">
-                    {activeTab.subtitle}
-                  </p>
-                )}
-                {(Array.isArray(activeTab.description)
-                  ? activeTab.description
-                  : [activeTab.description]
-                ).map((paragraph, i, paragraphs) => (
-                  <p
-                    key={i}
-                    className={`font-sans text-text-secondary text-lg leading-relaxed ${
-                      i === paragraphs.length - 1 ? "mb-0" : "mb-4"
-                    }`}
-                  >
-                    {paragraph}
-                  </p>
-                ))}
-              </div>
-
-              {/* Right — What We Do list */}
-              <div>
-                <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted mb-6">
-                  What We Do
-                </p>
-                <ul className="flex flex-col gap-5">
-                  {activeTab.whatWeDo.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-start gap-4 font-sans text-[15px] leading-snug"
-                    >
-                      <span className="font-mono text-[11px] text-accent/60 mt-1 shrink-0 tabular-nums">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <p className="text-text-primary font-medium">
-                          {item.title}
-                        </p>
-                        {"description" in item && item.description && (
-                          <p className="text-text-secondary mt-1 leading-relaxed">
-                            {item.description}
-                          </p>
-                        )}
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </motion.div>
+          <ServicePhasePanel key={activePhase.id} phase={activePhase} />
         </AnimatePresence>
       </div>
     </section>

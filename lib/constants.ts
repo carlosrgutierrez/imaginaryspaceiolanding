@@ -1,5 +1,10 @@
 export const SITE_NAME = "Imaginary Space";
 export const SITE_TAGLINE = "We don't just talk AI. We deliver it.";
+export const HERO_HEADLINE = SITE_TAGLINE;
+export const HERO_SUBTITLE =
+  "We help companies identify AI opportunities that will actually transform their business, then we build it, deploy it, and train your team to use it.";
+export const HERO_CLIENTS_EYEBROW =
+  "From next-gen startups to established enterprises:";
 export const SITE_URL = "https://imaginaryspace.co";
 export const CONTACT_EMAIL = "carlos@imaginaryspace.ai";
 export const CONTACT_LOCATION = "San Francisco, CA";
@@ -26,17 +31,181 @@ export const FOOTER_LINKS = [
 
 export const STORY_PARAGRAPHS = [
   "You bought the AI tools. Read the case studies. Attended the webinars.",
-  "But months later, the tools sit unused. The pilots never scaled.",
+  "But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.",
+  "Or you're pre-launch — trying to avoid these exact mistakes.",
   "You're not behind. You're just stuck in the same place everyone gets stuck.",
-  "That's why we built Imaginary Space.",
 ] as const;
 
-export const VALUE_PROPOSITION = {
-  headline: "That's why we built Imaginary Space.",
+/** Value block — headline appears first, then copy + CTA stack in below (no duplicate beat) */
+export const SCROLL_VALUE_BLOCK = {
+  headlinePrefix: "That's why we built",
+  headlineBrand: SITE_NAME,
+  lead: "AI that actually moves the needle.",
   paragraphs: [
-    "AI that actually moves the needle.",
     "Imaginary Space defines what's worth building, builds it for you, then trains your people to make it stick.",
     "Stop paying to experiment. Start paying for results.",
+  ],
+  ctaLabel: "get in touch",
+  ctaHref: "/work-with-us",
+} as const;
+
+/** @deprecated Use SCROLL_VALUE_BLOCK — kept for ValueProposition.tsx if referenced elsewhere */
+export const VALUE_PROPOSITION = {
+  headline: `${SCROLL_VALUE_BLOCK.headlinePrefix} ${SCROLL_VALUE_BLOCK.headlineBrand}.`,
+  paragraphs: [SCROLL_VALUE_BLOCK.lead, ...SCROLL_VALUE_BLOCK.paragraphs],
+} as const;
+
+export const SERVICES_HERO = {
+  titleLead: "From Trying AI to",
+  titleAccent: "Trusting It.",
+  subtitle:
+    "We help you identify, build, and adopt AI that actually delivers.",
+} as const;
+
+export type ServicePhase = {
+  id: "identify" | "develop" | "adopt";
+  number: string;
+  navLabel: string;
+  title: string;
+  subtitle: string;
+  description: string | readonly string[];
+  whatWeDo: readonly { title: string; description: string }[];
+};
+
+export const SERVICES_PHASES: readonly ServicePhase[] = [
+  {
+    id: "identify",
+    number: "1",
+    navLabel: "1. Identify",
+    title: "Identify",
+    subtitle: "Decide what's actually worth building",
+    description:
+      "Before anything gets built, we get aligned. We take the time to understand how work really happens inside your organisation — where time is lost, decisions slow down, and manual effort piles up. Then we narrow everything down to the small set of opportunities that will create real, measurable impact. This phase ensures you're not guessing, and not wasting time building the wrong thing.",
+    whatWeDo: [
+      {
+        title: "Executive Alignment Workshops",
+        description:
+          "Get leadership aligned on priorities, constraints, and what success actually looks like.",
+      },
+      {
+        title: "Employee & Stakeholder Interviews",
+        description:
+          "Speak with the people doing the work to uncover bottlenecks, inefficiencies, and hidden opportunities.",
+      },
+      {
+        title: "ROI Modeling & Business Case Design",
+        description:
+          "Pressure-test ideas early and focus only on what's worth the investment.",
+      },
+      {
+        title: "Prioritization Mapping",
+        description:
+          "Stack-rank opportunities by impact and effort so everyone knows where to start.",
+      },
+      {
+        title: "AI Readiness & Diagnostics Report",
+        description:
+          "A clear view of where you're ready now, what needs work, and what should wait.",
+      },
+    ],
+  },
+  {
+    id: "develop",
+    number: "2",
+    navLabel: "2. Develop",
+    title: "Develop",
+    subtitle: "Build it right so it works from day one.",
+    description:
+      "Once priorities are clear, we move into execution. This is where strategy becomes reality. We plan and build AI systems that integrate cleanly into your existing tools and workflows — designed for reliability, security, and real-world use. No fragile demos. No science projects.",
+    whatWeDo: [
+      {
+        title: "Scoping & Technical Architecture",
+        description:
+          "Translate priorities into a clear build plan — defining scope, data flows, integrations, and success criteria upfront.",
+      },
+      {
+        title: "Data & Systems Integration",
+        description:
+          "Embed AI into your existing stack so it fits naturally into how work already happens.",
+      },
+      {
+        title: "Proof of Concept → Production Build",
+        description:
+          "Build quickly, test in real workflows, then harden what works into a production-ready system.",
+      },
+      {
+        title: "Security, Governance & Reliability Design",
+        description:
+          "Implement access controls, monitoring, and guardrails so systems are safe, auditable, and dependable.",
+      },
+      {
+        title: "Performance Tuning & Optimization",
+        description:
+          "Improve accuracy, speed, and cost efficiency before anything is rolled out broadly.",
+      },
+    ],
+  },
+  {
+    id: "adopt",
+    number: "3",
+    navLabel: "3. Adopt",
+    title: "Adopt",
+    subtitle: "Make AI part of how work actually gets done",
+    description: [
+      "Shipping software isn't success.",
+      "Adoption is. In this phase, we work side by side with your teams to ensure new systems are understood, trusted, and used every day. The goal isn't a \"handover\" — it's ownership.",
+    ],
+    whatWeDo: [
+      {
+        title: "Pilot Launch & Controlled Rollout",
+        description:
+          "Introduce systems intentionally, gather feedback, and refine before scaling.",
+      },
+      {
+        title: "AI Enablement Sessions",
+        description:
+          "Hands-on training so teams know when and how to use what's been built.",
+      },
+      {
+        title: "Workflow Integration Support",
+        description:
+          "Embed AI into existing routines without slowing anyone down.",
+      },
+      {
+        title: "Performance Tracking & Ongoing Optimization",
+        description:
+          "Measure impact, improve continuously, and lock in the gains.",
+      },
+    ],
+  },
+] as const;
+
+export const PROCESS_SECTION = {
+  title: "Our days consist of three things...",
+  ctaLabel: "get in touch",
+  ctaHref: "/work-with-us",
+  steps: [
+    {
+      number: "1",
+      title: "Identify",
+      serviceTab: "identify",
+      description:
+        "Every project starts with clarity. We start by understanding how your team actually works — where time is being lost, what slows things down, and why work piles up. From there, we find the 5% of opportunities worth building.",
+    },
+    {
+      number: "2",
+      title: "Develop",
+      serviceTab: "develop",
+      description:
+        "Once we know what matters, we move quickly and get to the building. Our team plans and develops solutions that fit seamlessly into your existing systems — built the right way, so they work exactly as they should from day one.",
+    },
+    {
+      number: "3",
+      title: "Adopt",
+      serviceTab: "adopt",
+      description:
+        "Then we make it real. We work side by side with your teams — training, fine-tuning, and helping them integrate your new systems into their everyday work. By the time we step back, it's not a project anymore — it's just how work gets done.",
+    },
   ],
 } as const;
 
@@ -50,7 +219,7 @@ export const STATS: StatItem[] = [
   { label: "faster than traditional agencies", target: 10, suffix: "x" },
 ];
 
-export const MARQUEE_CLIENTS = [
+export const HERO_CLIENTS = [
   "Meta",
   "SIEMENS",
   "SignalFire",
@@ -59,38 +228,65 @@ export const MARQUEE_CLIENTS = [
   "Dude Wipes",
 ] as const;
 
+export const FAQ_SECTION = {
+  title: "FAQs",
+  subtitle: "You've got questions. We've got answers.",
+} as const;
+
 export const FAQS: { question: string; answer: string }[] = [
   {
-    question: "What does Imaginary Space actually do?",
+    question:
+      "How is Imaginary Space different from every other AI company out there?",
     answer:
-      "We identify high-value AI use cases inside your organisation, build the solutions, and ensure they are fully adopted by your team.",
+      "We're workflow specialists first, AI specialists second. We start by understanding how your teams actually work, then reimagine what's possible with AI—without pushing any single tool or platform. We are tool-agnostic, industry-agnostic, but results-obsessed.",
   },
   {
-    question: "How long does a typical engagement take?",
+    question: "How do I know if we're ready for AI?",
     answer:
-      "Most engagements run 8–16 weeks from discovery to deployment. We move quickly without cutting corners.",
+      "You're ready if you have clear pain points, repetitive work, or untapped data slowing things down. We'll help you figure out what's worth automating - and what's not.",
   },
   {
-    question: "Do you work with companies that have no AI experience?",
+    question: "What happens after you deliver?",
     answer:
-      "Yes. Most of our clients are starting from zero. We guide you every step of the way.",
+      "We don't hand off and vanish. We train your people, monitor how it's used, and refine until it runs smoothly without us.",
   },
   {
-    question: "What industries do you specialise in?",
+    question: "How much internal time will this take?",
     answer:
-      "We have delivered projects across healthcare, logistics, finance, retail, and professional services.",
+      "We know that you hired us to get things off of your team's plate. So, we keep your team's involvement focused and efficient - just enough to capture what matters, then we do the rest.",
   },
   {
-    question: "What is your pricing model?",
+    question: "How long until we see real results?",
     answer:
-      "We work on a fixed-scope project basis. Reach out and we'll scope your project in a free discovery call.",
+      "You'll typically see a working pilot within weeks, not months. We move fast, test early, and scale only once it's proven.",
   },
   {
-    question: "Do you offer ongoing support after launch?",
+    question:
+      "We don't have clean data or a big tech team—can we still do this?",
     answer:
-      "Yes. We offer retainer-based support and continuous improvement packages post-launch.",
+      "Too vague to answer. If this sounds like you, let's have a chat. Bottom line: We work with what you have, design around your existing systems, and handle the technical lift so your team can focus on their real work.",
+  },
+  {
+    question:
+      "We've already tried AI and it didn't work. Why would this be any different?",
+    answer:
+      "Most teams fail because they start with the wrong use cases or stop at the prototype. We focus only on what's worth building and stay through adoption - so it actually ships and delivers.",
   },
 ];
+
+export const CASE_STUDIES_SECTION = {
+  title: "Don't just take our word for it...",
+} as const;
+
+export const CTA_SECTION = {
+  lines: [
+    { text: "AI is here. Most will react.", tone: "primary" as const },
+    { text: "The few with a plan will lead.", tone: "mid" as const },
+    { text: "We build for those few.", tone: "accent" as const },
+  ],
+  ctaLabel: "get in touch",
+  ctaHref: "/work-with-us",
+} as const;
 
 export type CaseStudy = {
   slug: string;
@@ -169,6 +365,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       "40% less meeting time, 3x faster sprint planning, and 95% accuracy on AI-generated task assignments. 500+ teams now ship faster without sacrificing visibility — because the best project management is the kind you never think about.",
   },
 ];
+
+export const TEAM_HERO = {
+  titleLine1: "Your AI Transformation",
+  titleLine2: "Partner.",
+} as const;
 
 export const TEAM_INTRO = [
   "Imaginary Space was founded by two friends who saw, early on, the profound impact artificial intelligence would have on organisations over the coming decade. What began as a small, focused studio has grown into a team across the globe.",

@@ -1,27 +1,23 @@
 import FadeInView from "@/components/animations/FadeInView";
-import AccentHighlight from "@/components/ui/AccentHighlight";
-import SectionLabel from "@/components/ui/SectionLabel";
+import { SERVICES_HERO } from "@/lib/constants";
 
 export default function ServicesHero() {
   return (
-    <section className="min-h-[60vh] flex flex-col items-center justify-center pt-24 pb-12 px-6 text-center">
-      <FadeInView>
-        <SectionLabel className="mb-6">Services</SectionLabel>
-      </FadeInView>
+    <section className="flex min-h-[72vh] flex-col items-center justify-center px-6 pb-14 pt-[5.5rem] text-center sm:min-h-[76vh] sm:pb-16 sm:pt-28 lg:min-h-[78vh] lg:pb-20">
+      <div className="mx-auto w-full max-w-4xl lg:max-w-5xl lg:px-8">
+        <FadeInView>
+          <h1 className="font-serif text-[2.35rem] leading-[1.12] text-text-primary sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.1] lg:whitespace-nowrap xl:text-[4.5rem]">
+            {SERVICES_HERO.titleLead}{" "}
+            <span className="text-accent-grad">{SERVICES_HERO.titleAccent}</span>
+          </h1>
+        </FadeInView>
 
-      <FadeInView delay={0.1}>
-        <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-text-primary leading-[1.5] max-w-3xl">
-          From Trying AI to{" "}
-          <AccentHighlight>Trusting</AccentHighlight> It.
-        </h1>
-      </FadeInView>
-
-      <FadeInView delay={0.2} className="mt-8 max-w-xl">
-        <p className="font-sans text-text-secondary text-lg leading-relaxed">
-          A structured, three-phase engagement that takes you from opportunity
-          discovery to full adoption — with measurable results at every step.
-        </p>
-      </FadeInView>
+        <FadeInView delay={0.1} className="mt-8 sm:mt-10">
+          <p className="mx-auto max-w-3xl font-sans text-base leading-relaxed text-text-secondary sm:text-lg md:text-xl lg:whitespace-nowrap">
+            {SERVICES_HERO.subtitle}
+          </p>
+        </FadeInView>
+      </div>
     </section>
   );
 }

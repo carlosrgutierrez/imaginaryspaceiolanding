@@ -1,16 +1,11 @@
 import Image from "next/image";
 import FadeInView from "@/components/animations/FadeInView";
-import SectionLabel from "@/components/ui/SectionLabel";
 import { TEAM_LEADS } from "@/lib/constants";
 
 export default function LeadershipCards() {
   return (
     <section className="py-[7.5rem] border-t border-white/5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
-        <FadeInView className="mb-16">
-          <SectionLabel>Leadership</SectionLabel>
-        </FadeInView>
-
         <div className="flex flex-col gap-12">
           {TEAM_LEADS.map((leader, i) => {
             const isEven = i % 2 === 0;

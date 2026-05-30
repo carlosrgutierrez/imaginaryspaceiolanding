@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import FadeInView from "@/components/animations/FadeInView";
-import { FAQS } from "@/lib/constants";
+import { FAQS, FAQ_SECTION } from "@/lib/constants";
 
 export default function FAQSection() {
   const [open, setOpen] = useState<number | null>(null);
@@ -14,10 +14,10 @@ export default function FAQSection() {
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
         <FadeInView className="text-center mb-14">
           <h2 className="font-serif text-4xl lg:text-5xl text-text-primary">
-            FAQs
+            {FAQ_SECTION.title}
           </h2>
           <p className="mt-5 font-sans text-text-secondary text-base">
-            Common questions about working with Imaginary Space.
+            {FAQ_SECTION.subtitle}
           </p>
         </FadeInView>
 

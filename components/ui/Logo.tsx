@@ -16,8 +16,8 @@ export default function Logo({
     <Link href="/" className="flex items-center gap-2.5 group" onClick={onClick}>
       <BrandMark size={size} />
       {showText && (
-        <span className="font-sans font-semibold text-sm tracking-[0.18em] text-text-primary uppercase">
-          Imaginary Space
+        <span className="font-serif text-[15px] font-light tracking-normal text-text-primary lowercase">
+          imaginary space
         </span>
       )}
     </Link>
