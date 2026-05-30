@@ -2,7 +2,7 @@ import { forwardRef, type InputHTMLAttributes, type TextareaHTMLAttributes } fro
 import { cn } from "@/lib/utils";
 
 const inputBase =
-  "w-full bg-bg-card border border-white/10 rounded-lg px-4 py-3 font-sans text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent/40 transition-colors";
+  "w-full bg-bg-primary border border-white/10 rounded-lg px-4 py-3 font-sans text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent/40 transition-colors";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       {label && (
         <label
           htmlFor={id}
-          className="font-sans text-[11px] font-medium text-text-muted uppercase tracking-[0.12em]"
+          className="font-sans text-sm text-text-secondary"
         >
           {label}
         </label>
@@ -47,7 +47,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
       {label && (
         <label
           htmlFor={id}
-          className="font-sans text-[11px] font-medium text-text-muted uppercase tracking-[0.12em]"
+          className="font-sans text-sm text-text-secondary"
         >
           {label}
         </label>

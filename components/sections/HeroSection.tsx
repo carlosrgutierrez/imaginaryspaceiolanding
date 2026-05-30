@@ -1,4 +1,5 @@
 import FadeInView from "@/components/animations/FadeInView";
+import HeroClientLogos from "@/components/sections/HeroClientLogos";
 import {
   HERO_CLIENTS,
   HERO_CLIENTS_EYEBROW,
@@ -37,18 +38,9 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
           {HERO_CLIENTS_EYEBROW}
         </p>
 
-        <ul
-          className="mt-6 flex max-w-5xl flex-wrap items-center justify-center gap-x-12 gap-y-5 sm:mt-8 sm:gap-x-16 lg:gap-x-16"
-          aria-label="Trusted by"
-        >
-          {HERO_CLIENTS.map((name) => (
-            <li key={name} className="flex h-16 items-center sm:h-20">
-              <span className="select-none whitespace-nowrap font-sans text-base font-medium tracking-[0.04em] text-white/45 sm:text-lg">
-                {name}
-              </span>
-            </li>
-          ))}
-        </ul>
+        <div className="mt-6 w-full sm:mt-8">
+          <HeroClientLogos clients={HERO_CLIENTS} />
+        </div>
       </FadeInView>
     </section>
   );

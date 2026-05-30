@@ -219,14 +219,51 @@ export const STATS: StatItem[] = [
   { label: "faster than traditional agencies", target: 10, suffix: "x" },
 ];
 
-export const HERO_CLIENTS = [
-  "Meta",
-  "SIEMENS",
-  "SignalFire",
-  "Fifty Three Stations",
-  "FELT.",
-  "Dude Wipes",
-] as const;
+export type HeroClient = {
+  name: string;
+  slug: string;
+  logo: string;
+  logoClass?: string;
+};
+
+export const HERO_CLIENTS: HeroClient[] = [
+  {
+    name: "Meta",
+    slug: "meta",
+    logo: "/images/clients/meta.png",
+    logoClass: "h-[1.15rem] max-w-[4.5rem] sm:h-5 sm:max-w-[5rem]",
+  },
+  {
+    name: "SIEMENS",
+    slug: "siemens",
+    logo: "/images/clients/siemens.png",
+    logoClass: "h-4 max-w-[5.75rem] sm:h-[1.05rem] sm:max-w-[6.5rem]",
+  },
+  {
+    name: "SignalFire",
+    slug: "signalfire",
+    logo: "/images/clients/signalfire.png",
+    logoClass: "h-[1.15rem] max-w-[7rem] sm:h-5 sm:max-w-[7.75rem]",
+  },
+  {
+    name: "Fifty Three Stations",
+    slug: "fifty-three-stations",
+    logo: "/images/clients/fifty-three-stations.png",
+    logoClass: "h-8 max-w-[2.75rem] sm:h-9 sm:max-w-[3.1rem]",
+  },
+  {
+    name: "FELT.",
+    slug: "felt",
+    logo: "/images/clients/felt.png",
+    logoClass: "h-3.5 max-w-[3.25rem] sm:h-4 sm:max-w-[3.75rem]",
+  },
+  {
+    name: "Dude Wipes",
+    slug: "dude-wipes",
+    logo: "/images/clients/dude-wipes.png",
+    logoClass: "h-6 max-w-[2.75rem] sm:h-7 sm:max-w-[3.1rem]",
+  },
+];
 
 export const FAQ_SECTION = {
   title: "FAQs",

@@ -4,7 +4,6 @@ import { useState, type FormEvent } from "react";
 import { MapPin, Mail, Globe, CheckCircle2 } from "lucide-react";
 import FadeInView from "@/components/animations/FadeInView";
 import SectionLabel from "@/components/ui/SectionLabel";
-import AccentHighlight from "@/components/ui/AccentHighlight";
 import { Input, Textarea } from "@/components/ui/Input";
 import Button from "@/components/ui/Button";
 import {
@@ -45,8 +44,58 @@ const INITIAL_FORM = {
   projectDescription: "",
 };
 
+const fieldLabel =
+  "font-sans text-sm text-text-secondary";
+
 const selectClass =
-  "w-full bg-bg-card border border-white/10 rounded-lg px-4 py-3 font-sans text-sm text-text-primary focus:outline-none focus:border-accent/40 transition-colors appearance-none";
+  "w-full rounded-lg border border-white/10 bg-bg-primary px-4 py-3 font-sans text-sm text-text-primary transition-colors appearance-none focus:border-accent/40 focus:outline-none";
+
+function FormSelect({
+  id,
+  label,
+  value,
+  onChange,
+  options,
+  placeholder,
+  error,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+  placeholder: string;
+  error?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label htmlFor={id} className={fieldLabel}>
+        {label}
+      </label>
+      <select
+        id={id}
+        className={selectClass}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required
+      >
+        <option value="" disabled>
+          {placeholder}
+        </option>
+        {options.map((option) => (
+          <option key={option} value={option} className="bg-bg-card">
+            {option}
+          </option>
+        ))}
+      </select>
+      {error && (
+        <span role="alert" className="font-sans text-xs text-red-400">
+          {error}
+        </span>
+      )}
+    </div>
+  );
+}
 
 export default function ContactSplit() {
   const [form, setForm] = useState(INITIAL_FORM);
@@ -115,26 +164,26 @@ export default function ContactSplit() {
   }
 
   return (
-    <section className="min-h-screen pt-24 pb-16 px-6 lg:px-8">
-      <div className="max-w-screen-xl mx-auto">
-        <div className="grid lg:grid-cols-[2fr_3fr] gap-12 lg:gap-20 items-start">
+    <section className="min-h-screen px-6 pb-16 pt-24 lg:px-8">
+      <div className="mx-auto max-w-screen-xl">
+        <div className="grid items-start gap-12 lg:grid-cols-[2fr_3fr] lg:gap-20">
 
           {/* ── Left column ── */}
           <FadeInView className="lg:sticky lg:top-28">
             <SectionLabel className="mb-6">Work With Us</SectionLabel>
 
-            <h1 className="font-serif text-4xl lg:text-5xl text-text-primary leading-[1.5] mb-8">
+            <h1 className="mb-8 font-serif text-4xl leading-[1.2] text-text-primary lg:text-5xl">
               Ready to transform your business with{" "}
-              <AccentHighlight>AI?</AccentHighlight>
+              <span className="text-accent-grad">AI?</span>
             </h1>
 
-            <p className="font-sans text-text-secondary text-base leading-relaxed mb-12">
+            <p className="mb-12 max-w-md font-sans text-base leading-relaxed text-text-secondary">
               Tell us about your project and we&apos;ll get back to you within
               one business day. No obligations, no sales pressure — just an
               honest conversation about whether we&apos;re the right fit.
             </p>
 
-            <div className="flex flex-col gap-5">
+            <div className="flex flex-col gap-6">
               {[
                 {
                   icon: MapPin,
@@ -153,23 +202,21 @@ export default function ContactSplit() {
                   value: CONTACT_REACH,
                 },
               ].map(({ icon: Icon, label, value, href }) => (
-                <div key={label} className="flex items-center gap-4">
-                  <div className="w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
-                    <Icon size={15} className="text-accent" />
-                  </div>
+                <div key={label} className="flex items-start gap-3">
+                  <Icon size={16} className="mt-1 shrink-0 text-accent" />
                   <div>
-                    <p className="font-sans text-[10px] text-text-muted uppercase tracking-[0.14em]">
+                    <p className="font-sans text-sm font-medium text-text-primary">
                       {label}
                     </p>
                     {href ? (
                       <a
                         href={href}
-                        className="font-sans text-sm text-text-primary mt-0.5 hover:text-accent transition-colors"
+                        className="mt-0.5 block font-sans text-sm text-text-secondary transition-colors hover:text-accent"
                       >
                         {value}
                       </a>
                     ) : (
-                      <p className="font-sans text-sm text-text-primary mt-0.5">
+                      <p className="mt-0.5 font-sans text-sm text-text-secondary">
                         {value}
                       </p>
                     )}
@@ -182,15 +229,15 @@ export default function ContactSplit() {
           {/* ── Right column — Form ── */}
           <FadeInView delay={0.15}>
             {status === "success" ? (
-              <div className="bg-bg-card border border-white/8 rounded-card-lg p-8 lg:p-10 flex flex-col items-center text-center gap-6 min-h-[420px] justify-center">
-                <div className="w-14 h-14 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <div className="flex min-h-[420px] flex-col items-center justify-center gap-6 rounded-card-lg border border-white/5 bg-bg-card/50 p-8 text-center lg:p-10">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-accent/10">
                   <CheckCircle2 size={28} className="text-accent" />
                 </div>
                 <div>
-                  <h2 className="font-serif text-3xl text-text-primary mb-3">
+                  <h2 className="mb-3 font-serif text-3xl text-text-primary">
                     Message received
                   </h2>
-                  <p className="font-sans text-text-secondary text-base leading-relaxed max-w-md">
+                  <p className="mx-auto max-w-md font-sans text-base leading-relaxed text-text-secondary">
                     Thanks for reaching out. We&apos;ll review your project and
                     get back to you within one business day.
                   </p>
@@ -205,23 +252,22 @@ export default function ContactSplit() {
               </div>
             ) : (
               <form
-                className="bg-bg-card border border-white/8 rounded-card-lg p-8 lg:p-10 flex flex-col gap-6"
+                className="flex flex-col gap-5 rounded-card-lg border border-white/5 bg-bg-card/50 p-6 sm:p-8 lg:p-10"
                 onSubmit={handleSubmit}
                 noValidate
               >
-                {/* Honeypot — hidden from users, bots may fill it */}
                 <input
                   type="text"
                   name="website"
                   tabIndex={-1}
                   autoComplete="off"
                   aria-hidden="true"
-                  className="absolute opacity-0 pointer-events-none h-0 w-0"
+                  className="pointer-events-none absolute h-0 w-0 opacity-0"
                   value={honeypot}
                   onChange={(e) => setHoneypot(e.target.value)}
                 />
 
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <Input
                     id="first-name"
                     label="First Name"
@@ -242,18 +288,17 @@ export default function ContactSplit() {
                   />
                 </div>
 
-                <Input
-                  id="work-email"
-                  label="Work Email"
-                  type="email"
-                  placeholder="alex@company.com"
-                  required
-                  value={form.workEmail}
-                  onChange={(e) => updateField("workEmail", e.target.value)}
-                  error={errors.workEmail}
-                />
-
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Input
+                    id="work-email"
+                    label="Work Email"
+                    type="email"
+                    placeholder="alex@company.com"
+                    required
+                    value={form.workEmail}
+                    onChange={(e) => updateField("workEmail", e.target.value)}
+                    error={errors.workEmail}
+                  />
                   <Input
                     id="company"
                     label="Company"
@@ -263,93 +308,53 @@ export default function ContactSplit() {
                     onChange={(e) => updateField("company", e.target.value)}
                     error={errors.company}
                   />
-                  <Input
-                    id="company-website"
-                    label="Company Website"
-                    type="url"
-                    placeholder="https://company.com"
-                    value={form.companyWebsite}
-                    onChange={(e) =>
-                      updateField("companyWebsite", e.target.value)
-                    }
-                    error={errors.companyWebsite}
+                </div>
+
+                <Input
+                  id="company-website"
+                  label="Company Website"
+                  type="url"
+                  placeholder="https://company.com"
+                  value={form.companyWebsite}
+                  onChange={(e) =>
+                    updateField("companyWebsite", e.target.value)
+                  }
+                  error={errors.companyWebsite}
+                />
+
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <FormSelect
+                    id="role"
+                    label="Your Role"
+                    value={form.role}
+                    onChange={(value) => updateField("role", value)}
+                    options={[...ROLE_OPTIONS]}
+                    placeholder="Select your role"
+                    error={errors.role}
+                  />
+                  <FormSelect
+                    id="company-size"
+                    label="Company Size"
+                    value={form.companySize}
+                    onChange={(value) => updateField("companySize", value)}
+                    options={[...SIZE_OPTIONS]}
+                    placeholder="Select company size"
+                    error={errors.companySize}
                   />
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <label
-                    htmlFor="role"
-                    className="font-sans text-[11px] font-medium text-text-muted uppercase tracking-[0.12em]"
-                  >
-                    Your Role
-                  </label>
-                  <select
-                    id="role"
-                    className={selectClass}
-                    value={form.role}
-                    onChange={(e) => updateField("role", e.target.value)}
-                    required
-                  >
-                    <option value="" disabled className="text-text-muted">
-                      Select your role
-                    </option>
-                    {ROLE_OPTIONS.map((r) => (
-                      <option key={r} value={r} className="bg-bg-card">
-                        {r}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.role && (
-                    <span role="alert" className="font-sans text-xs text-red-400">
-                      {errors.role}
-                    </span>
-                  )}
-                </div>
-
-                <div className="flex flex-col gap-1.5">
-                  <label
-                    htmlFor="company-size"
-                    className="font-sans text-[11px] font-medium text-text-muted uppercase tracking-[0.12em]"
-                  >
-                    Company Size
-                  </label>
-                  <select
-                    id="company-size"
-                    className={selectClass}
-                    value={form.companySize}
-                    onChange={(e) => updateField("companySize", e.target.value)}
-                    required
-                  >
-                    <option value="" disabled>
-                      Select company size
-                    </option>
-                    {SIZE_OPTIONS.map((s) => (
-                      <option key={s} value={s} className="bg-bg-card">
-                        {s}
-                      </option>
-                    ))}
-                  </select>
-                  {errors.companySize && (
-                    <span role="alert" className="font-sans text-xs text-red-400">
-                      {errors.companySize}
-                    </span>
-                  )}
-                </div>
-
                 <div className="flex flex-col gap-3">
-                  <label className="font-sans text-[11px] font-medium text-text-muted uppercase tracking-[0.12em]">
-                    Budget Range
-                  </label>
-                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  <label className={fieldLabel}>Budget Range</label>
+                  <div className="grid grid-cols-2 gap-2">
                     {BUDGET_OPTIONS.map((opt) => (
                       <button
                         key={opt}
                         type="button"
                         onClick={() => updateField("budget", opt)}
-                        className={`font-sans text-sm py-2.5 px-3 rounded-lg border transition-all duration-150 ${
+                        className={`rounded-lg border px-3 py-2.5 font-sans text-sm transition-colors ${
                           form.budget === opt
-                            ? "border-accent text-accent bg-accent/10"
-                            : "border-white/10 text-text-muted hover:border-white/25"
+                            ? "border-accent bg-accent/10 text-accent"
+                            : "border-white/10 text-text-secondary hover:border-white/20"
                         }`}
                       >
                         {opt}
@@ -375,10 +380,7 @@ export default function ContactSplit() {
                 />
 
                 {status === "error" && errorMessage && (
-                  <p
-                    role="alert"
-                    className="font-sans text-sm text-red-400 -mt-2"
-                  >
+                  <p role="alert" className="-mt-1 font-sans text-sm text-red-400">
                     {errorMessage}
                   </p>
                 )}
@@ -387,7 +389,7 @@ export default function ContactSplit() {
                   type="submit"
                   variant="solid"
                   size="lg"
-                  className="w-full rounded-lg mt-2"
+                  className="mt-1 w-full rounded-lg"
                   disabled={status === "loading"}
                 >
                   {status === "loading" ? "Sending…" : "Send Message →"}
