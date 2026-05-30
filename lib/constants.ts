@@ -231,37 +231,37 @@ export const HERO_CLIENTS: HeroClient[] = [
     name: "Meta",
     slug: "meta",
     logo: "/images/clients/meta.png",
-    logoClass: "h-[1.15rem] max-w-[4.5rem] sm:h-5 sm:max-w-[5rem]",
+    logoClass: "h-6 max-w-[5.5rem] sm:h-7 sm:max-w-[6.25rem]",
   },
   {
     name: "SIEMENS",
     slug: "siemens",
     logo: "/images/clients/siemens.png",
-    logoClass: "h-4 max-w-[5.75rem] sm:h-[1.05rem] sm:max-w-[6.5rem]",
+    logoClass: "h-5 max-w-[7rem] sm:h-6 sm:max-w-[8rem]",
   },
   {
     name: "SignalFire",
     slug: "signalfire",
     logo: "/images/clients/signalfire.png",
-    logoClass: "h-[1.15rem] max-w-[7rem] sm:h-5 sm:max-w-[7.75rem]",
+    logoClass: "h-6 max-w-[8.5rem] sm:h-7 sm:max-w-[9.5rem]",
   },
   {
     name: "Fifty Three Stations",
     slug: "fifty-three-stations",
     logo: "/images/clients/fifty-three-stations.png",
-    logoClass: "h-8 max-w-[2.75rem] sm:h-9 sm:max-w-[3.1rem]",
+    logoClass: "h-10 max-w-[3.5rem] sm:h-11 sm:max-w-[4rem]",
   },
   {
     name: "FELT.",
     slug: "felt",
     logo: "/images/clients/felt.png",
-    logoClass: "h-3.5 max-w-[3.25rem] sm:h-4 sm:max-w-[3.75rem]",
+    logoClass: "h-5 max-w-[4.25rem] sm:h-6 sm:max-w-[5rem]",
   },
   {
     name: "Dude Wipes",
     slug: "dude-wipes",
     logo: "/images/clients/dude-wipes.png",
-    logoClass: "h-6 max-w-[2.75rem] sm:h-7 sm:max-w-[3.1rem]",
+    logoClass: "h-8 max-w-[3.5rem] sm:h-9 sm:max-w-[4rem]",
   },
 ];
 
