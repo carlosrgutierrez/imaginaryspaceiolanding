@@ -12,6 +12,7 @@ import {
   CONTACT_REACH,
 } from "@/lib/constants";
 import type { ContactFormErrors } from "@/lib/contact";
+import { normalizeWebsiteUrl } from "@/lib/contact";
 
 const BUDGET_OPTIONS = ["< $10k", "$10k–$50k", "$50k–$150k", "$150k+"];
 
@@ -313,12 +314,19 @@ export default function ContactSplit() {
                 <Input
                   id="company-website"
                   label="Company Website"
-                  type="url"
-                  placeholder="https://company.com"
+                  type="text"
+                  inputMode="url"
+                  placeholder="company.com"
                   value={form.companyWebsite}
                   onChange={(e) =>
                     updateField("companyWebsite", e.target.value)
                   }
+                  onBlur={(e) => {
+                    const normalized = normalizeWebsiteUrl(e.target.value);
+                    if (normalized !== e.target.value.trim()) {
+                      updateField("companyWebsite", normalized);
+                    }
+                  }}
                   error={errors.companyWebsite}
                 />
 

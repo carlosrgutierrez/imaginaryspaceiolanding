@@ -50,8 +50,9 @@ export function validateContactForm(
   if (!companySize) errors.companySize = "Select company size.";
   if (!budget) errors.budget = "Select a budget range.";
 
-  if (companyWebsite && !isValidUrl(companyWebsite)) {
-    errors.companyWebsite = "Enter a valid URL (include https://).";
+  const normalizedWebsite = normalizeWebsiteUrl(companyWebsite);
+  if (companyWebsite && !isValidUrl(normalizedWebsite)) {
+    errors.companyWebsite = "Enter a valid website (e.g. company.com).";
   }
 
   if (Object.keys(errors).length > 0) {
@@ -65,7 +66,7 @@ export function validateContactForm(
       lastName,
       workEmail,
       company,
-      companyWebsite: companyWebsite || undefined,
+      companyWebsite: normalizedWebsite || undefined,
       role,
       companySize,
       budget,
@@ -76,6 +77,14 @@ export function validateContactForm(
 
 function trimString(value: unknown): string {
   return typeof value === "string" ? value.trim() : "";
+}
+
+/** Accepts `company.com` and normalizes to `https://company.com`. */
+export function normalizeWebsiteUrl(value: string): string {
+  const trimmed = value.trim();
+  if (!trimmed) return "";
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  return `https://${trimmed}`;
 }
 
 function isValidUrl(value: string): boolean {
