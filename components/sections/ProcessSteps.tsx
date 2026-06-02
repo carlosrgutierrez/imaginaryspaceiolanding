@@ -26,11 +26,11 @@ function ProcessStepCard({
   return (
     <Link
       href={href}
-      className="group flex flex-1 flex-col border border-white/10 bg-bg-card/60 p-7 transition-all duration-300 hover:border-accent/60 hover:bg-bg-card focus:outline-none focus-visible:border-accent sm:p-8 lg:p-10"
+      className="group relative flex min-h-[22rem] flex-1 flex-col justify-between border border-white/10 bg-bg-card/60 px-7 py-7 transition-all duration-500 hover:border-accent/60 hover:bg-bg-card focus:outline-none focus-visible:border-accent sm:min-h-[24rem] sm:px-8 sm:py-8 lg:min-h-[26rem] lg:px-10 lg:py-10"
       aria-label={`${step.title} — view on Services`}
     >
-      {/* Number + icon row */}
-      <div className="mb-6 flex items-start justify-between">
+      {/* Top — number + icon, always visible */}
+      <div className="flex items-start justify-between">
         <div
           className="process-step-number select-none font-serif text-[3.5rem] tabular leading-none lg:text-[4.5rem]"
           aria-hidden
@@ -40,21 +40,19 @@ function ProcessStepCard({
         <Icon className="h-10 w-10 shrink-0 sm:h-11 sm:w-11" />
       </div>
 
-      {/* Title */}
-      <h3 className="font-sans text-xl font-normal tracking-tight text-text-primary sm:text-2xl">
-        {step.title}
-        <span
-          className="ml-1.5 inline-block text-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-          aria-hidden
-        >
-          &gt;
-        </span>
-      </h3>
-
-      {/* Description */}
-      <p className="mt-4 font-sans text-sm leading-relaxed text-text-secondary/80 sm:text-base">
-        {step.description}
-      </p>
+      {/* Bottom — title visible, description expands below on hover */}
+      <div className="mt-auto">
+        <h3 className="font-sans text-xl font-normal tracking-tight text-text-primary sm:text-2xl">
+          {step.title}
+        </h3>
+        <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grid-rows-[1fr]">
+          <div className="overflow-hidden">
+            <p className="pt-5 font-sans text-sm leading-relaxed text-text-secondary/80 sm:text-base">
+              {step.description}
+            </p>
+          </div>
+        </div>
+      </div>
     </Link>
   );
 }
@@ -64,10 +62,9 @@ export default function ProcessSteps() {
     <section className="relative bg-bg-primary pb-[7.5rem] pt-[5.5rem] sm:pt-[6.5rem] lg:pt-[7.5rem]">
       <div className="mx-auto max-w-screen-xl px-6 lg:px-8">
         <FadeInView className="mx-auto mb-14 flex max-w-6xl items-center justify-between gap-6 lg:mb-20">
-          <RevealHeading
-            lines={["Three things. Every time."]}
-            className="font-serif text-3xl text-text-primary sm:text-4xl"
-          />
+          <RevealHeading className="font-serif text-3xl text-text-primary sm:text-4xl">
+            {"Three things.\nEvery time."}
+          </RevealHeading>
           <Link href={PROCESS_SECTION.ctaHref} className="shrink-0">
             <Button
               variant="ghost"

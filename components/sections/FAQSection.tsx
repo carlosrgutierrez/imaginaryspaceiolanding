@@ -14,10 +14,9 @@ export default function FAQSection() {
     <section className="py-[7.5rem]">
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
         <FadeInView className="mb-14">
-          <RevealHeading
-            lines={["FAQs"]}
-            className="font-serif text-3xl text-text-primary sm:text-4xl"
-          />
+          <RevealHeading className="font-serif text-3xl text-text-primary sm:text-4xl">
+            FAQs
+          </RevealHeading>
           <p className="mt-4 font-sans text-text-secondary text-base">
             {FAQ_SECTION.subtitle}
           </p>

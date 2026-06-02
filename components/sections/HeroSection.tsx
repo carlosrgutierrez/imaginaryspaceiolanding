@@ -20,9 +20,10 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
         <RevealHeading
           as="h1"
           animate
-          lines={["We don't just talk AI.", "We deliver it."]}
           className="text-h1-gradient font-serif font-medium text-[clamp(2rem,5vw,2.5rem)] leading-[1.1] tracking-[-0.005em] pb-[7px] text-center sm:text-[clamp(2.25rem,4vw,3rem)] lg:text-[4rem]"
-        />
+        >
+          {"We don't just talk AI.\nWe deliver it."}
+        </RevealHeading>
 
         <FadeInView delay={0.15} className="mt-7 w-full max-w-[50rem] sm:mt-8">
           <p className="font-serif text-[1.25rem] font-light leading-[1.6] text-text-secondary/85">

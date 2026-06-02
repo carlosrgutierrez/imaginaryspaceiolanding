@@ -1,57 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef, useEffect } from "react";
+import { useInView } from "framer-motion";
 import { cn } from "@/lib/utils";
+import VerticalCutReveal, { VerticalCutRevealRef } from "./VerticalCutReveal";
 
 interface RevealHeadingProps {
-  lines: string[];
+  children: string;
   className?: string;
   delay?: number;
   as?: "h1" | "h2" | "h3";
+  staggerDuration?: number;
   /** Fire on mount — use for above-fold headings */
   animate?: boolean;
 }
 
-const container = {
-  hidden: {},
-  visible: (delay: number) => ({
-    transition: { staggerChildren: 0.12, delayChildren: delay },
-  }),
-};
-
-const line = {
-  hidden: { y: "105%" },
-  visible: {
-    y: "0%",
-    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
 export default function RevealHeading({
-  lines,
+  children,
   className,
   delay = 0,
   as: Tag = "h2",
+  staggerDuration = 0.08,
   animate: onMount = false,
 }: RevealHeadingProps) {
+  const vcRef = useRef<VerticalCutRevealRef>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const inView = useInView(containerRef, { once: true, amount: 0.3 });
+
+  useEffect(() => {
+    if (onMount) {
+      const t = setTimeout(() => vcRef.current?.startAnimation(), delay * 1000);
+      return () => clearTimeout(t);
+    }
+  }, [onMount, delay]);
+
+  useEffect(() => {
+    if (inView && !onMount) {
+      const t = setTimeout(() => vcRef.current?.startAnimation(), delay * 1000);
+      return () => clearTimeout(t);
+    }
+  }, [inView, onMount, delay]);
+
   return (
-    <motion.div
-      variants={container}
-      custom={delay}
-      initial="hidden"
-      {...(onMount
-        ? { animate: "visible" }
-        : { whileInView: "visible", viewport: { once: true, amount: 0.3 } })}
-    >
+    <div ref={containerRef}>
       <Tag className={cn("block", className)}>
-        {lines.map((text, i) => (
-          <span key={i} className="block overflow-hidden">
-            <motion.span className="block" variants={line}>
-              {text}
-            </motion.span>
-          </span>
-        ))}
+        <VerticalCutReveal
+          ref={vcRef}
+          autoStart={false}
+          splitBy="lines"
+          staggerDuration={staggerDuration}
+          transition={{ type: "spring", stiffness: 160, damping: 22 }}
+        >
+          {children}
+        </VerticalCutReveal>
       </Tag>
-    </motion.div>
+    </div>
   );
 }

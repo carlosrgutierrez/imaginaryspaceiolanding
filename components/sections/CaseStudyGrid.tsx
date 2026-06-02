@@ -31,10 +31,9 @@ export default function CaseStudyGrid() {
     <section className="py-[7.5rem] border-t border-white/5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
         <div className="mb-14">
-          <RevealHeading
-            lines={["Don't just take our word for it..."]}
-            className="font-serif text-3xl text-text-primary sm:text-4xl"
-          />
+          <RevealHeading className="font-serif text-3xl text-text-primary sm:text-4xl">
+            Don't just take our word for it...
+          </RevealHeading>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
