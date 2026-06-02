@@ -32,8 +32,7 @@ export const FOOTER_LINKS = [
 export const STORY_PARAGRAPHS = [
   "You bought the AI tools. Read the case studies. Attended the webinars.",
   "But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.",
-  "Or you're pre-launch — trying to avoid these exact mistakes.",
-  "You're not behind. You're just stuck in the same place everyone gets stuck.",
+  "Or you're pre-launch, trying to avoid these exact mistakes. Either way, you're not behind. You're just stuck in the same place everyone gets stuck.",
 ] as const;
 
 /** Value block — headline appears first, then copy + CTA stack in below (no duplicate beat) */
@@ -80,7 +79,7 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
     title: "Identify",
     subtitle: "Decide what's actually worth building",
     description:
-      "Before anything gets built, we get aligned. We take the time to understand how work really happens inside your organisation — where time is lost, decisions slow down, and manual effort piles up. Then we narrow everything down to the small set of opportunities that will create real, measurable impact. This phase ensures you're not guessing, and not wasting time building the wrong thing.",
+      "Before anything gets built, we get aligned. We take the time to understand how work really happens inside your organisation: where time is lost, decisions slow down, and manual effort piles up. Then we narrow everything down to the small set of opportunities that will create real, measurable impact. This phase ensures you're not guessing, and not wasting time building the wrong thing.",
     whatWeDo: [
       {
         title: "Executive Alignment Workshops",
@@ -116,12 +115,12 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
     title: "Develop",
     subtitle: "Build it right so it works from day one.",
     description:
-      "Once priorities are clear, we move into execution. This is where strategy becomes reality. We plan and build AI systems that integrate cleanly into your existing tools and workflows — designed for reliability, security, and real-world use. No fragile demos. No science projects.",
+      "Once priorities are clear, we move into execution. This is where strategy becomes reality. We plan and build AI systems that integrate cleanly into your existing tools and workflows, designed for reliability, security, and real-world use. No fragile demos. No science projects.",
     whatWeDo: [
       {
         title: "Scoping & Technical Architecture",
         description:
-          "Translate priorities into a clear build plan — defining scope, data flows, integrations, and success criteria upfront.",
+          "Translate priorities into a clear build plan, defining scope, data flows, integrations, and success criteria upfront.",
       },
       {
         title: "Data & Systems Integration",
@@ -153,7 +152,7 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
     subtitle: "Make AI part of how work actually gets done",
     description: [
       "Shipping software isn't success.",
-      "Adoption is. In this phase, we work side by side with your teams to ensure new systems are understood, trusted, and used every day. The goal isn't a \"handover\" — it's ownership.",
+      "Adoption is. In this phase, we work side by side with your teams to ensure new systems are understood, trusted, and used every day. The goal isn't a handover. It's ownership.",
     ],
     whatWeDo: [
       {
@@ -181,7 +180,7 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
 ] as const;
 
 export const PROCESS_SECTION = {
-  title: "Our days consist of three things...",
+  title: "Three things. Every time.",
   ctaLabel: "get in touch",
   ctaHref: "/work-with-us",
   steps: [
@@ -190,21 +189,21 @@ export const PROCESS_SECTION = {
       title: "Identify",
       serviceTab: "identify",
       description:
-        "Every project starts with clarity. We start by understanding how your team actually works — where time is being lost, what slows things down, and why work piles up. From there, we find the 5% of opportunities worth building.",
+        "Every project starts with clarity. We start by understanding how your team actually works: where time is being lost, what slows things down, and why work piles up. From there, we find the 5% of opportunities worth building.",
     },
     {
       number: "2",
       title: "Develop",
       serviceTab: "develop",
       description:
-        "Once we know what matters, we move quickly and get to the building. Our team plans and develops solutions that fit seamlessly into your existing systems — built the right way, so they work exactly as they should from day one.",
+        "Once we know what matters, we move quickly and get to the building. Our team plans and develops solutions that fit seamlessly into your existing systems, built the right way, so they work exactly as they should from day one.",
     },
     {
       number: "3",
       title: "Adopt",
       serviceTab: "adopt",
       description:
-        "Then we make it real. We work side by side with your teams — training, fine-tuning, and helping them integrate your new systems into their everyday work. By the time we step back, it's not a project anymore — it's just how work gets done.",
+        "Then we make it real. We work side by side with your teams: training, fine-tuning, and helping them integrate your new systems into their everyday work. By the time we step back, it's not a project anymore. It's just how work gets done.",
     },
   ],
 } as const;
@@ -275,7 +274,7 @@ export const FAQS: { question: string; answer: string }[] = [
     question:
       "How is Imaginary Space different from every other AI company out there?",
     answer:
-      "We're workflow specialists first, AI specialists second. We start by understanding how your teams actually work, then reimagine what's possible with AI—without pushing any single tool or platform. We are tool-agnostic, industry-agnostic, but results-obsessed.",
+      "We're workflow specialists first, AI specialists second. We start by understanding how your teams actually work, then reimagine what's possible with AI, without pushing any single tool or platform. Tool-agnostic, industry-agnostic, results-obsessed.",
   },
   {
     question: "How do I know if we're ready for AI?",
@@ -299,7 +298,7 @@ export const FAQS: { question: string; answer: string }[] = [
   },
   {
     question:
-      "We don't have clean data or a big tech team—can we still do this?",
+      "We don't have clean data or a big tech team. Can we still work together?",
     answer:
       "Too vague to answer. If this sounds like you, let's have a chat. Bottom line: We work with what you have, design around your existing systems, and handle the technical lift so your team can focus on their real work.",
   },
@@ -321,7 +320,7 @@ export const CTA_SECTION = {
     { text: "The few with a plan will lead.", tone: "mid" as const },
     { text: "We build for those few.", tone: "accent" as const },
   ],
-  ctaLabel: "get in touch",
+  ctaLabel: "Let's build together",
   ctaHref: "/work-with-us",
 } as const;
 
@@ -353,11 +352,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: "8+", label: "Authoritative data sources" },
     ],
     problem:
-      "Land developers spend days completing RFIs manually—gathering data from government sources, juggling template formats, and coordinating feedback across teams. Projects stall for weeks, data errors are costly, and smaller teams can't compete without dedicated research staff.",
+      "Land developers spend days completing RFIs manually, gathering data from government sources, juggling template formats, and coordinating feedback across teams. Projects stall for weeks, data errors are costly, and smaller teams can't compete without dedicated research staff.",
     solution:
-      "An AI-powered RFI platform that accepts any template format, auto-fills fields from 8+ authoritative data sources, and validates with integrated mapping. Hours of manual research are replaced by seconds of automated data collection — with visual overlays for zoning, floodplains, and parcel boundaries, plus export-ready PDFs and CSVs for any agency.",
+      "An AI-powered RFI platform that accepts any template format, auto-fills fields from 8+ authoritative data sources, and validates with integrated mapping. Hours of manual research replaced by seconds of automated data collection, with visual overlays for zoning, floodplains, and parcel boundaries, plus export-ready PDFs and CSVs for any agency.",
     results:
-      "428% time savings on RFI completion and higher data accuracy through automated validation. Teams manage multiple projects without expanding headcount — and smaller firms now compete with enterprise players using the same authoritative data sources.",
+      "428% time savings on RFI completion and higher data accuracy through automated validation. Teams manage multiple projects without expanding headcount, and smaller firms now compete with enterprise players using the same authoritative data sources.",
   },
   {
     slug: "measure-ai",
@@ -374,11 +373,11 @@ export const CASE_STUDIES: CaseStudy[] = [
       { value: "15+", label: "Component types detected" },
     ],
     problem:
-      "Engineers receive 2D PDF drawings and spend hours tracing ductwork runs, counting fittings, and building Bills of Quantities by hand — one fitting at a time. Manual processes mean inconsistent accuracy, slow turnaround, and estimators buried in spreadsheets instead of winning work.",
+      "Engineers receive 2D PDF drawings and spend hours tracing ductwork runs, counting fittings, and building Bills of Quantities by hand, one fitting at a time. Manual processes mean inconsistent accuracy, slow turnaround, and estimators buried in spreadsheets instead of winning work.",
     solution:
-      "One platform that reads your drawings, identifies every duct, fitting, damper, and diffuser, and builds a structured Bill of Quantities automatically. Upload your PDFs and let the AI detect, classify, and measure over 15 core component types — review every detection with confidence scores and interactive overlays, then export a fully structured BOQ (NRM, SMM7, or DW144) directly to Excel or PDF.",
+      "One platform that reads your drawings, identifies every duct, fitting, damper, and diffuser, and builds a structured Bill of Quantities automatically. Upload your PDFs and let the AI detect, classify, and measure over 15 core component types. Review every detection with confidence scores and interactive overlays, then export a fully structured BOQ (NRM, SMM7, or DW144) directly to Excel or PDF.",
     results:
-      "10 drawings processed in under 3 minutes, measurement accuracy within ±2%, and every quantity traceable back to the exact drawing it came from — moving ventilation teams from manual takeoff to tender-ready output with auditability built in.",
+      "10 drawings processed in under 3 minutes, measurement accuracy within ±2%, and every quantity traceable back to the exact drawing it came from. Moving ventilation teams from manual takeoff to tender-ready output with auditability built in.",
   },
   {
     slug: "flor-work",
@@ -388,18 +387,18 @@ export const CASE_STUDIES: CaseStudy[] = [
       "An AI agent that plans sprints, assigns work, and keeps engineering teams in sync.",
     image: "/images/flor-work.png",
     subtitle:
-      "An AI agent that generates sprint plans, assigns tasks by skill and capacity, and keeps everyone in sync — no standups needed.",
+      "An AI agent that generates sprint plans, assigns tasks by skill and capacity, and keeps everyone in sync. No standups needed.",
     metrics: [
       { value: "40%", label: "Less meeting time" },
       { value: "3x", label: "Faster sprint planning" },
       { value: "500+", label: "Teams shipping faster" },
     ],
     problem:
-      "Engineering teams are drowning in project management overhead — sprint planning, standups, and status updates consume hours every week. Engineers spend 40% less time coding, sprint planning takes days, and tasks fall through the cracks. Teams without PMs are forced to choose between speed and organization.",
+      "Engineering teams are drowning in project management overhead: sprint planning, standups, and status updates consume hours every week. Engineers spend 40% less time coding, sprint planning takes days, and tasks fall through the cracks. Teams without PMs are forced to choose between speed and organization.",
     solution:
-      "An AI agent that generates sprint plans in seconds, assigns tasks by skill and capacity, and keeps everyone in sync through Slack — no standups needed. It plugs into GitHub, Jira, Linear, and Notion, detects blockers before they escalate, and runs on enterprise-grade, scalable infrastructure.",
+      "An AI agent that generates sprint plans in seconds, assigns tasks by skill and capacity, and keeps everyone in sync through Slack. No standups needed. It plugs into GitHub, Jira, Linear, and Notion, detects blockers before they escalate, and runs on enterprise-grade, scalable infrastructure.",
     results:
-      "40% less meeting time, 3x faster sprint planning, and 95% accuracy on AI-generated task assignments. 500+ teams now ship faster without sacrificing visibility — because the best project management is the kind you never think about.",
+      "40% less meeting time, 3x faster sprint planning, and 95% accuracy on AI-generated task assignments. 500+ teams now ship faster without sacrificing visibility, because the best project management is the kind you never think about.",
   },
 ];
 
@@ -419,7 +418,7 @@ export const TEAM_LEADS = [
     lastName: "Roper",
     title: "Founder & CEO",
     photo: "/images/team/harry-roper.png",
-    bio: "Harry Roper is the Founder and CEO of Imaginary Space, an AI-native product studio that has shipped over 50 products for venture-backed founders and enterprise teams across industries. Harry has spent the last seven years building the infrastructure, team, and methodology to take bold ideas from concept to scalable software in weeks. His clients include Dude Wipes, the UK Military, SignalFire, Renegade Partners, and Plato. Harry is a practitioner first—actively building, shipping, and documenting in public—and brings that same hands-on intensity to every engagement Imaginary Space takes on.",
+    bio: "Harry Roper is the Founder and CEO of Imaginary Space, an AI-native product studio that has shipped over 50 products for venture-backed founders and enterprise teams across industries. Harry has spent the last seven years building the infrastructure, team, and methodology to take bold ideas from concept to scalable software in weeks. His clients include Dude Wipes, the UK Military, SignalFire, Renegade Partners, and Plato. Harry is a practitioner first, actively building, shipping, and documenting in public, and brings that same hands-on intensity to every engagement Imaginary Space takes on.",
     gradient: "from-[#0a1628] via-[#0d1e3a] to-[#0a1020]",
   },
   {

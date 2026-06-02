@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight } from "lucide-react";
 import FadeInView from "@/components/animations/FadeInView";
+import RevealHeading from "@/components/animations/RevealHeading";
 import { CASE_STUDIES, CASE_STUDIES_SECTION, type CaseStudy } from "@/lib/constants";
 
 const SCRIM =
@@ -29,11 +30,12 @@ export default function CaseStudyGrid() {
   return (
     <section className="py-[7.5rem] border-t border-white/5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
-        <FadeInView className="mb-14 text-center">
-          <h2 className="font-serif text-4xl text-text-primary leading-[1.3] lg:text-5xl">
-            {CASE_STUDIES_SECTION.title}
-          </h2>
-        </FadeInView>
+        <div className="mb-14">
+          <RevealHeading
+            lines={["Don't just take our word for it..."]}
+            className="font-serif text-3xl text-text-primary sm:text-4xl"
+          />
+        </div>
 
         <div className="grid md:grid-cols-3 gap-6 items-stretch">
           {CASE_STUDIES.map((cs, i) => (
@@ -50,7 +52,7 @@ export default function CaseStudyGrid() {
                 role="button"
                 tabIndex={0}
                 aria-label={`Read case study: ${cs.title}`}
-                className="group flex h-full cursor-pointer flex-col rounded-card-lg border border-white/8 bg-bg-card overflow-hidden transition-colors hover:border-white/16 focus:outline-none focus-visible:border-accent"
+                className="group flex h-full cursor-pointer flex-col border border-white/8 bg-bg-card overflow-hidden transition-colors hover:border-white/16 focus:outline-none focus-visible:border-accent"
               >
                 <motion.div
                   layoutId={`cs-image-${cs.slug}`}
@@ -105,12 +107,12 @@ export default function CaseStudyGrid() {
               role="dialog"
               aria-modal="true"
               aria-label={active.title}
-              className="relative w-full max-w-[740px] max-h-[88vh] flex flex-col overflow-hidden rounded-[22px] border border-white/8 bg-bg-card shadow-[0_50px_130px_rgba(0,0,0,0.62)]"
+              className="relative w-full max-w-[740px] max-h-[88vh] flex flex-col overflow-hidden border border-white/8 bg-bg-card shadow-[0_50px_130px_rgba(0,0,0,0.62)]"
             >
               <button
                 onClick={() => setActive(null)}
                 aria-label="Close case study"
-                className="absolute top-4 right-4 z-[3] grid place-items-center w-[42px] h-[42px] rounded-full bg-black/45 border border-white/16 text-white backdrop-blur-sm transition-[transform,background] hover:bg-black/80 hover:rotate-90"
+                className="absolute top-4 right-4 z-[3] grid place-items-center w-[42px] h-[42px] bg-black/45 border border-white/16 text-white backdrop-blur-sm transition-[transform,background] hover:bg-black/80 hover:rotate-90"
               >
                 <X size={18} />
               </button>
@@ -149,7 +151,7 @@ export default function CaseStudyGrid() {
                     {active.metrics.map((m) => (
                       <div
                         key={m.label}
-                        className="flex-1 min-w-[120px] rounded-xl border border-accent/15 bg-accent/[0.06] px-[18px] py-4"
+                        className="flex-1 min-w-[120px] border border-accent/15 bg-accent/[0.06] px-[18px] py-4"
                       >
                         <div className="font-serif text-2xl text-accent-grad leading-none">
                           {m.value}

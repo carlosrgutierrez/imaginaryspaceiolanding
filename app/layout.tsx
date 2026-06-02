@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Plus_Jakarta_Sans } from "next/font/google";
+import { Funnel_Display } from "next/font/google";
 import "@/styles/globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -8,16 +8,9 @@ import MotionProvider from "@/components/layout/MotionProvider";
 import Analytics from "@/components/layout/Analytics";
 import { SITE_URL } from "@/lib/constants";
 
-const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const plusJakartaSans = Plus_Jakarta_Sans({
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plus-jakarta",
+const funnelDisplay = Funnel_Display({
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-funnel",
   subsets: ["latin"],
   display: "swap",
 });
@@ -60,7 +53,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${plusJakartaSans.variable}`}
+      className={funnelDisplay.variable}
     >
       <body className="antialiased">
         <a href="#main-content" className="skip-nav">

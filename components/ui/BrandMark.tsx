@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface BrandMarkProps {
@@ -9,19 +8,22 @@ interface BrandMarkProps {
 export default function BrandMark({ size = "md", className }: BrandMarkProps) {
   return (
     <div
+      aria-hidden
       className={cn(
-        "bg-accent-grad flex items-center justify-center shrink-0 rounded-[6px]",
+        "shrink-0 bg-accent-grad",
         size === "sm" ? "w-6 h-6" : "w-7 h-7",
         className
       )}
-    >
-      <Image
-        src="/assets/logo-dark.png"
-        alt=""
-        width={20}
-        height={20}
-        className="w-[70%] h-auto"
-      />
-    </div>
+      style={{
+        maskImage: "url(/assets/logo-dark.png)",
+        maskSize: "contain",
+        maskRepeat: "no-repeat",
+        maskPosition: "center",
+        WebkitMaskImage: "url(/assets/logo-dark.png)",
+        WebkitMaskSize: "contain",
+        WebkitMaskRepeat: "no-repeat",
+        WebkitMaskPosition: "center",
+      }}
+    />
   );
 }

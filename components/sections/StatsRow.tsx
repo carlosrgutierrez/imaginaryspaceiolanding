@@ -4,15 +4,15 @@ import { STATS } from "@/lib/constants";
 
 export default function StatsRow() {
   return (
-    <section className="py-16 border-y border-white/5">
+    <section className="border-y border-white/5">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3">
+        <div className="grid grid-cols-1 items-stretch md:grid-cols-3">
           {STATS.map((stat, i) => (
             <FadeInView
               key={stat.label}
               delay={i * 0.1}
-              className={`text-center px-6 py-2 ${
-                i > 0 ? "md:border-l md:border-white/10 max-md:border-t max-md:border-white/10 max-md:pt-7 max-md:mt-2" : ""
+              className={`flex flex-col items-center justify-center py-16 text-center ${
+                i > 0 ? "md:border-l md:border-white/10 max-md:border-t max-md:border-white/10" : ""
               }`}
             >
               <div className="font-serif text-[52px] leading-none text-text-primary tabular">

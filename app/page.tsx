@@ -12,8 +12,8 @@ export default function HomePage() {
       <HeroSection />
       <ScrollRevealText />
       <ProcessSteps />
-      <StatsRow />
       <CaseStudyGrid />
+      <StatsRow />
       <FAQSection />
       <CTAFooter />
     </>

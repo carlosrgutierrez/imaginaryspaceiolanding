@@ -2,8 +2,8 @@
 
 /* ─── Fonts: resolved at runtime by next/font ─── */
 @theme inline {
-  --font-sans: var(--font-plus-jakarta);
-  --font-serif: var(--font-poppins);
+  --font-sans: var(--font-funnel);
+  --font-serif: var(--font-funnel);
 }
 
 /* ─── Design tokens: Tailwind utilities + CSS vars on :root ─── */
@@ -75,9 +75,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── Poppins display (Morningside: Light 300) ─── */
+/* ─── Funnel Display — display weight inherits from utility classes ─── */
 .font-serif {
-  font-weight: 300;
   letter-spacing: -0.02em;
 }
 
@@ -181,6 +180,26 @@ body::after {
 /* Remove default focus ring for mouse/touch users */
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.5);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.12) var(--bg-primary);
 }
 
 /* ─── Text selection ─── */
