@@ -1,5 +1,4 @@
 import FadeInView from "@/components/animations/FadeInView";
-import RevealHeading from "@/components/animations/RevealHeading";
 import HeroClientLogos from "@/components/sections/HeroClientLogos";
 import {
   HERO_CLIENTS,
@@ -17,13 +16,11 @@ export default function HeroSection({ subtitle }: HeroSectionProps) {
     <section className="hero-bg relative flex min-h-svh flex-col px-6 pt-[4.5rem] lg:px-10">
       {/* Headline + subtitle — centered in the space above the logo bar */}
       <div className="relative z-[1] mx-auto flex w-full max-w-[1400px] flex-1 flex-col items-center justify-center pb-[min(10vh,5rem)] pt-4 text-center sm:pt-6">
-        <RevealHeading
-          as="h1"
-          animate
-          className="text-h1-gradient font-serif font-medium text-[clamp(2rem,5vw,2.5rem)] leading-[1.1] tracking-[-0.005em] pb-[7px] text-center sm:text-[clamp(2.25rem,4vw,3rem)] lg:text-[4rem]"
-        >
-          {"We don't just talk AI.\nWe deliver it."}
-        </RevealHeading>
+        <FadeInView className="w-full max-w-[55.5rem] lg:max-w-none">
+          <h1 className="text-h1-gradient font-serif font-medium text-[clamp(2rem,5vw,2.5rem)] leading-[1.1] tracking-[-0.005em] pb-[7px] text-center sm:text-[clamp(2.25rem,4vw,3rem)] lg:text-[4rem]">
+            {HERO_HEADLINE}
+          </h1>
+        </FadeInView>
 
         <FadeInView delay={0.15} className="mt-7 w-full max-w-[50rem] sm:mt-8">
           <p className="font-serif text-[1.25rem] font-light leading-[1.6] text-text-secondary/85">

@@ -12,8 +12,10 @@ import Button from "@/components/ui/Button";
 import { SCROLL_VALUE_BLOCK, STORY_PARAGRAPHS } from "@/lib/constants";
 
 const PARA_COUNT = STORY_PARAGRAPHS.length;
-const PARA_SHARE = 1 / PARA_COUNT;
-const FADE = 0.08;
+// Compress color transitions to finish by 55% of total scroll — leaves room for cover
+const SCROLL_END = 0.55;
+const PARA_SHARE = SCROLL_END / PARA_COUNT;
+const FADE = 0.06;
 
 function useParagraphColor(progress: MotionValue<number>, index: number) {
   const activateAt = index * PARA_SHARE;
@@ -71,15 +73,15 @@ export default function ScrollRevealText() {
 
   const [para1, para2] = SCROLL_VALUE_BLOCK.paragraphs;
 
-  // As scroll nears the end, slide content upward so the cover section feels natural
-  const contentY = useTransform(scrollYProgress, [0.75, 1], ["0%", "-12%"]);
+  // Text drifts up slowly as scroll ends — value block overtakes it at normal speed
+  const contentY = useTransform(scrollYProgress, [0.4, 1], ["0%", "-25%"]);
 
   return (
     <>
       {/* Scroll-reveal paragraphs */}
       <section
         ref={containerRef}
-        style={{ height: `${PARA_COUNT * 55}vh` }}
+        style={{ height: `${PARA_COUNT * 65 + 80}vh` }}
         className="relative"
         aria-label="Our story"
       >
@@ -103,7 +105,7 @@ export default function ScrollRevealText() {
       </section>
 
       {/* Value block — slides up over the scroll section */}
-      <section className="relative z-10 -mt-[12vh] border-b border-white/8 bg-bg-primary py-20 sm:py-28">
+      <section className="relative z-10 -mt-[80vh] border-b border-white/8 bg-bg-primary py-20 sm:py-28">
         {/* Shadow at top edge to sell the cover effect */}
         <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/60 to-transparent" />
         <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">

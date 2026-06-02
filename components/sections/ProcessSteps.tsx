@@ -63,7 +63,7 @@ export default function ProcessSteps() {
       <div className="mx-auto max-w-screen-xl px-6 lg:px-8">
         <FadeInView className="mx-auto mb-14 flex max-w-6xl items-center justify-between gap-6 lg:mb-20">
           <RevealHeading className="font-serif text-3xl text-text-primary sm:text-4xl">
-            {"Three things.\nEvery time."}
+            {"Three things. Every time."}
           </RevealHeading>
           <Link href={PROCESS_SECTION.ctaHref} className="shrink-0">
             <Button
