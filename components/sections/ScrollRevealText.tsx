@@ -1,15 +1,30 @@
 "use client";
 
 import Link from "next/link";
-import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { SCROLL_VALUE_BLOCK, STORY_PARAGRAPHS } from "@/lib/constants";
+
+function buildStepClipPath(
+  blocks: { h: number; delay: number }[],
+  progress: number
+): string {
+  const n = blocks.length;
+  const pts: string[] = [];
+  blocks.forEach((block, i) => {
+    const x1 = ((i / n) * 100).toFixed(4);
+    const x2 = (((i + 1) / n) * 100).toFixed(4);
+    // Each block transitions to 0 at its own staggered rate
+    const bStart = block.delay * 0.45;
+    const bEnd = Math.min(bStart + 0.6, 1);
+    const bp = Math.max(0, Math.min(1, (progress - bStart) / (bEnd - bStart)));
+    const h = (block.h * (1 - bp)).toFixed(2);
+    pts.push(`${x1}% ${h}px`, `${x2}% ${h}px`);
+  });
+  pts.push("100% 100%", "0% 100%");
+  return `polygon(${pts.join(", ")})`;
+}
 
 const PARA_COUNT = STORY_PARAGRAPHS.length;
 // Compress color transitions to finish by 55% of total scroll — leaves room for cover
@@ -63,8 +78,26 @@ function ParagraphReveal({
   );
 }
 
+// Tetris blocks that drop in at the top of the value section
+const GRID_BLOCKS = [
+  { h: 56, delay: 0.06 },
+  { h: 32, delay: 0.00 },
+  { h: 72, delay: 0.18 },
+  { h: 44, delay: 0.03 },
+  { h: 64, delay: 0.12 },
+  { h: 28, delay: 0.09 },
+  { h: 60, delay: 0.15 },
+  { h: 40, delay: 0.01 },
+  { h: 48, delay: 0.07 },
+  { h: 68, delay: 0.21 },
+  { h: 36, delay: 0.04 },
+  { h: 52, delay: 0.13 },
+];
+const BLOCK_MAX_H = Math.max(...GRID_BLOCKS.map((b) => b.h));
+
 export default function ScrollRevealText() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const valueSectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -75,6 +108,15 @@ export default function ScrollRevealText() {
 
   // Text drifts up slowly as scroll ends — value block overtakes it at normal speed
   const contentY = useTransform(scrollYProgress, [0.4, 1], ["0%", "-25%"]);
+
+  // Clip-path: stepped top edge → flat straight line as story scroll completes
+  const clipProgress = useTransform(scrollYProgress, [0.68, 0.98], [0, 1]);
+  const [sectionClipPath, setSectionClipPath] = useState(() =>
+    buildStepClipPath(GRID_BLOCKS, 0)
+  );
+  useMotionValueEvent(clipProgress, "change", (p) => {
+    setSectionClipPath(buildStepClipPath(GRID_BLOCKS, p));
+  });
 
   return (
     <>
@@ -102,10 +144,19 @@ export default function ScrollRevealText() {
             </div>
           </motion.div>
         </div>
+
       </section>
 
       {/* Value block — slides up over the scroll section */}
-      <section className="border-hatch-bottom relative z-10 -mt-[80vh] bg-bg-primary py-20 sm:py-28">
+      <section
+        ref={valueSectionRef}
+        className="border-hatch-bottom relative z-10 -mt-[80vh] py-20 sm:py-28"
+        style={{
+          background: "radial-gradient(ellipse 90% 55% at 50% 0%, rgba(96,165,250,0.10) 0%, transparent 65%), #0a0a0a",
+          clipPath: sectionClipPath,
+        }}
+      >
+
         <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">
           <p className="mb-6 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Our mission

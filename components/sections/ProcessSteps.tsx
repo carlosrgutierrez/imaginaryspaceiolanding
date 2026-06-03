@@ -59,10 +59,26 @@ function ProcessStepCard({
 
 export default function ProcessSteps() {
   return (
-    <section className="relative bg-bg-primary pb-[7.5rem] pt-[5.5rem] sm:pt-[6.5rem] lg:pt-[7.5rem]">
-      <div className="mx-auto max-w-screen-xl px-6 lg:px-8">
-        <FadeInView className="mx-auto mb-14 flex max-w-6xl items-center justify-between gap-6 lg:mb-20">
-          <RevealHeading className="font-serif text-3xl text-text-primary sm:text-4xl">
+    <section className="relative border-b border-t border-white/10 bg-bg-primary pb-[7.5rem] pt-[7.5rem]">
+
+      {/* Full-height column dividers — spans entire section top-to-bottom */}
+      <div className="pointer-events-none absolute inset-0 hidden sm:block">
+        <div className="mx-auto flex h-full max-w-screen-xl px-6 lg:px-8">
+            <div className="mx-auto flex h-full w-full max-w-6xl border-l border-r border-white/10">
+            <div className="flex-1 border-r border-white/10" />
+            <div className="flex-1 border-r border-white/10" />
+            <div className="flex-1" />
+          </div>
+        </div>
+      </div>
+
+      {/* Heading row — padded */}
+      <div className="relative mx-auto max-w-screen-xl px-6 lg:px-8">
+        <FadeInView className="mx-auto flex max-w-6xl items-center justify-between py-10">
+          <RevealHeading
+            nowrap
+            className="font-serif text-2xl tracking-[-0.01em] text-text-primary sm:text-[2rem]"
+          >
             {"Three things. Every time."}
           </RevealHeading>
           <Link href={PROCESS_SECTION.ctaHref} className="shrink-0">
@@ -75,8 +91,13 @@ export default function ProcessSteps() {
             </Button>
           </Link>
         </FadeInView>
+      </div>
 
-        {/* 3-column row — no gap so borders collapse into dividers */}
+      {/* Full-width horizontal divider between heading and cards */}
+      <div className="border-b border-white/10" />
+
+      {/* Cards — padded */}
+      <div className="relative mx-auto max-w-screen-xl px-6 lg:px-8">
         <div className="mx-auto flex max-w-6xl flex-col sm:flex-row">
           {PROCESS_SECTION.steps.map((step, i) => {
             const Icon = STEP_ICONS[i];
@@ -87,8 +108,10 @@ export default function ProcessSteps() {
             );
           })}
         </div>
-
       </div>
+
+      {/* Full-width horizontal divider below cards */}
+      <div className="border-b border-white/10" />
     </section>
   );
 }
