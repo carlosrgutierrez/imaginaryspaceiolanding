@@ -106,9 +106,10 @@ export default function ScrollRevealText() {
 
       {/* Value block — slides up over the scroll section */}
       <section className="relative z-10 -mt-[80vh] border-b border-white/8 bg-bg-primary py-20 sm:py-28">
-        {/* Shadow at top edge to sell the cover effect */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-black/60 to-transparent" />
         <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">
+          <p className="mb-6 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+            Our mission
+          </p>
           <motion.div
             initial="hidden"
             whileInView="visible"
