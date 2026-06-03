@@ -4,7 +4,7 @@ import { STATS } from "@/lib/constants";
 
 export default function StatsRow() {
   return (
-    <section className="border-y border-white/5">
+    <section className="border-hatch border-hatch-bottom">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 items-stretch md:grid-cols-3">
           {STATS.map((stat, i) => (

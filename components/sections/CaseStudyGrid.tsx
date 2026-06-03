@@ -28,7 +28,7 @@ export default function CaseStudyGrid() {
   }, [active]);
 
   return (
-    <section className="py-[7.5rem] border-t border-white/5">
+    <section className="border-hatch py-[7.5rem]">
       <div className="max-w-screen-xl mx-auto px-6 lg:px-8">
         <div className="mb-14">
           <RevealHeading className="font-serif text-3xl text-text-primary sm:text-4xl">

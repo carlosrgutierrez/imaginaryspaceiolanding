@@ -105,7 +105,7 @@ export default function ScrollRevealText() {
       </section>
 
       {/* Value block — slides up over the scroll section */}
-      <section className="relative z-10 -mt-[80vh] border-b border-white/8 bg-bg-primary py-20 sm:py-28">
+      <section className="border-hatch-bottom relative z-10 -mt-[80vh] bg-bg-primary py-20 sm:py-28">
         <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">
           <p className="mb-6 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Our mission
