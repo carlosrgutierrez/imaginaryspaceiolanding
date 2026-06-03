@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from "framer-motion";
 import Button from "@/components/ui/Button";
 import { SCROLL_VALUE_BLOCK, STORY_PARAGRAPHS } from "@/lib/constants";
 
