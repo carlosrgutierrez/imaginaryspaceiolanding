@@ -80,18 +80,22 @@ function ParagraphReveal({
 
 // Tetris blocks that drop in at the top of the value section
 const GRID_BLOCKS = [
-  { h: 56, delay: 0.06 },
-  { h: 32, delay: 0.00 },
-  { h: 72, delay: 0.18 },
-  { h: 44, delay: 0.03 },
-  { h: 64, delay: 0.12 },
-  { h: 28, delay: 0.09 },
-  { h: 60, delay: 0.15 },
-  { h: 40, delay: 0.01 },
-  { h: 48, delay: 0.07 },
-  { h: 68, delay: 0.21 },
-  { h: 36, delay: 0.04 },
-  { h: 52, delay: 0.13 },
+  { h: 100, delay: 0.03 },
+  { h: 52,  delay: 0.00 },
+  { h: 148, delay: 0.12 },
+  { h: 68,  delay: 0.07 },
+  { h: 120, delay: 0.18 },
+  { h: 44,  delay: 0.02 },
+  { h: 136, delay: 0.15 },
+  { h: 60,  delay: 0.09 },
+  { h: 112, delay: 0.20 },
+  { h: 80,  delay: 0.05 },
+  { h: 144, delay: 0.13 },
+  { h: 56,  delay: 0.01 },
+  { h: 128, delay: 0.17 },
+  { h: 72,  delay: 0.10 },
+  { h: 96,  delay: 0.21 },
+  { h: 48,  delay: 0.06 },
 ];
 const BLOCK_MAX_H = Math.max(...GRID_BLOCKS.map((b) => b.h));
 
