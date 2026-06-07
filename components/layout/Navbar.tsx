@@ -44,7 +44,8 @@ export default function Navbar() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 h-16 lg:h-[4.5rem] flex items-center justify-between">
+        <div className="max-w-screen-xl mx-auto px-6 lg:px-8 h-16 lg:h-[4.5rem]">
+          <div className="max-w-6xl mx-auto flex items-center justify-between h-full">
           <Logo />
 
           <div className="hidden md:flex items-center gap-9 lg:gap-10 ml-auto">
@@ -79,6 +80,7 @@ export default function Navbar() {
           >
             <Menu size={22} />
           </button>
+          </div>
         </div>
       </header>
 

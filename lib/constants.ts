@@ -27,6 +27,11 @@ export const FOOTER_LINKS = [
     external: true,
   },
   { href: "/work-with-us", label: "Contact" },
+  {
+    href: "https://www.imaginaryspace.ai",
+    label: "imaginaryspace.ai",
+    external: true,
+  },
 ] as const;
 
 export const STORY_PARAGRAPHS = [
