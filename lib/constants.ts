@@ -1,14 +1,30 @@
 export const SITE_NAME = "Imaginary Space";
-export const SITE_TAGLINE = "We don't just talk AI. We deliver it.";
-export const HERO_HEADLINE = SITE_TAGLINE;
+export const SITE_TAGLINE = "Adopt AI the right way.";
+export const HERO_HEADLINE_LINES = [
+  "Adopt AI the right way.",
+  "Elite team. Elite product.",
+] as const;
+export const HERO_HEADLINE = HERO_HEADLINE_LINES.join(" ");
 export const HERO_SUBTITLE =
-  "We help companies identify AI opportunities that will actually transform their business, then we build it, deploy it, and train your team to use it.";
+  "Custom operations layers, internal apps, data pipelines, and AI agents built around how your company works. For venture-backed and enterprise teams.";
 export const HERO_CLIENTS_EYEBROW =
-  "From next-gen startups to established enterprises:";
-export const SITE_URL = "https://imaginaryspace.co";
+  "Trusted by venture-backed companies and global enterprises:";
+export const SITE_URL = "https://imaginaryspace.io";
 export const CONTACT_EMAIL = "carlos@imaginaryspace.ai";
 export const CONTACT_LOCATION = "San Francisco, CA";
 export const CONTACT_REACH = "Working globally";
+
+export const SEO = {
+  defaultTitle: "Imaginary Space | AI Adoption Partner",
+  defaultDescription:
+    "Help companies adopt AI the right way. Elite team for venture-backed and enterprise operators. Custom operations layers, internal apps, and AI agents built around your workflows.",
+  servicesDescription:
+    "Enterprise AI adoption from discovery to daily use. Identify what to build, develop production systems, and embed AI in how your teams work. One senior team throughout.",
+  teamDescription:
+    "Elite team. Elite product. Meet the senior engineers behind Imaginary Space. 50+ production systems for venture-backed and enterprise clients.",
+  contactDescription:
+    "Looking for the right AI adoption partner? Tell us about your company. We respond within one business day.",
+} as const;
 
 export const FOOTER_LINKS = [
   {
@@ -35,35 +51,34 @@ export const FOOTER_LINKS = [
 ] as const;
 
 export const STORY_PARAGRAPHS = [
-  "You bought the AI tools. Read the case studies. Attended the webinars.",
-  "But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.",
-  "Or you're pre-launch, trying to avoid these exact mistakes. Either way, you're not behind. You're just stuck in the same place everyone gets stuck.",
+  "Most teams buy AI tools. Few change how the company works.",
+  "We build what fits your workflows: internal apps, data pipelines, and AI agents.",
+  "Venture firms need portfolio adoption. Enterprises need a partner who stays.",
+  "Elite team. Elite product. The partner who stays until it works.",
 ] as const;
 
-/** Value block — headline appears first, then copy + CTA stack in below (no duplicate beat) */
+/** Value block: headline first, then copy + CTA below */
 export const SCROLL_VALUE_BLOCK = {
-  headlinePrefix: "That's why we built",
-  headlineBrand: SITE_NAME,
-  lead: "AI that actually moves the needle.",
+  headline: "Adopt AI the right way.",
   paragraphs: [
-    "Imaginary Space defines what's worth building, builds it for you, then trains your people to make it stick.",
-    "Stop paying to experiment. Start paying for results.",
+    "Not one feature. A personalized operations layer that changes how teams work, think, and use AI every day.",
+    "Same senior team from first conversation through adoption. No outsourcing. No handoff.",
   ],
   ctaLabel: "get in touch",
   ctaHref: "/work-with-us",
 } as const;
 
-/** @deprecated Use SCROLL_VALUE_BLOCK — kept for ValueProposition.tsx if referenced elsewhere */
+/** @deprecated Use SCROLL_VALUE_BLOCK */
 export const VALUE_PROPOSITION = {
-  headline: `${SCROLL_VALUE_BLOCK.headlinePrefix} ${SCROLL_VALUE_BLOCK.headlineBrand}.`,
-  paragraphs: [SCROLL_VALUE_BLOCK.lead, ...SCROLL_VALUE_BLOCK.paragraphs],
+  headline: SCROLL_VALUE_BLOCK.headline,
+  paragraphs: [...SCROLL_VALUE_BLOCK.paragraphs],
 } as const;
 
 export const SERVICES_HERO = {
-  titleLead: "From Trying AI to",
-  titleAccent: "Trusting It.",
+  titleLead: "Adopt AI the right way.",
+  titleAccent: "Built for your workflows.",
   subtitle:
-    "We help you identify, build, and adopt AI that actually delivers.",
+    "Custom operations layers for venture portfolios and enterprise teams. Internal apps, data pipelines, and AI agents designed around what slows you down.",
 } as const;
 
 export type ServicePhase = {
@@ -82,34 +97,34 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
     number: "1",
     navLabel: "1. Identify",
     title: "Identify",
-    subtitle: "Decide what's actually worth building",
+    subtitle: "Find what will change how the company works",
     description:
-      "Before anything gets built, we get aligned. We take the time to understand how work really happens inside your organisation: where time is lost, decisions slow down, and manual effort piles up. Then we narrow everything down to the small set of opportunities that will create real, measurable impact. This phase ensures you're not guessing, and not wasting time building the wrong thing.",
+      "We study how work actually happens: where time goes, where decisions stall, and what manual effort repeats. Then we narrow to the AI opportunities that will improve how teams operate day to day. You leave with a clear roadmap, not a slide deck.",
     whatWeDo: [
       {
-        title: "Executive Alignment Workshops",
+        title: "Leadership Alignment",
         description:
-          "Get leadership aligned on priorities, constraints, and what success actually looks like.",
+          "Align partners, executives, and operators on priorities, constraints, and what good adoption looks like.",
       },
       {
-        title: "Employee & Stakeholder Interviews",
+        title: "Workflow Discovery",
         description:
-          "Speak with the people doing the work to uncover bottlenecks, inefficiencies, and hidden opportunities.",
+          "Talk to the people doing the work. Map bottlenecks, data gaps, and where AI can fit naturally.",
       },
       {
-        title: "ROI Modeling & Business Case Design",
+        title: "Business Case Design",
         description:
-          "Pressure-test ideas early and focus only on what's worth the investment.",
+          "Pressure-test ideas before capital is committed. Focus on what is worth building.",
       },
       {
-        title: "Prioritization Mapping",
+        title: "Prioritization",
         description:
-          "Stack-rank opportunities by impact and effort so everyone knows where to start.",
+          "Rank opportunities by impact and fit. Everyone knows where to start.",
       },
       {
-        title: "AI Readiness & Diagnostics Report",
+        title: "Readiness Assessment",
         description:
-          "A clear view of where you're ready now, what needs work, and what should wait.",
+          "An honest read on data, integrations, and governance before anything gets built.",
       },
     ],
   },
@@ -118,34 +133,34 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
     number: "2",
     navLabel: "2. Develop",
     title: "Develop",
-    subtitle: "Build it right so it works from day one.",
+    subtitle: "Build production systems, not demos",
     description:
-      "Once priorities are clear, we move into execution. This is where strategy becomes reality. We plan and build AI systems that integrate cleanly into your existing tools and workflows, designed for reliability, security, and real-world use. No fragile demos. No science projects.",
+      "Our engineers build AI into your existing stack: internal apps, data pipelines, and agents designed for security, reliability, and real use. Production standards from the start. Nothing that dies in staging.",
     whatWeDo: [
       {
-        title: "Scoping & Technical Architecture",
+        title: "Architecture & Scoping",
         description:
-          "Translate priorities into a clear build plan, defining scope, data flows, integrations, and success criteria upfront.",
+          "Clear plan for scope, data flows, integrations, and success criteria before code is written.",
       },
       {
-        title: "Data & Systems Integration",
+        title: "Systems Integration",
         description:
-          "Embed AI into your existing stack so it fits naturally into how work already happens.",
+          "Embed AI into the tools and workflows your team already uses.",
       },
       {
-        title: "Proof of Concept → Production Build",
+        title: "Prototype to Production",
         description:
-          "Build quickly, test in real workflows, then harden what works into a production-ready system.",
+          "Validate in live workflows, then harden to production-grade quality.",
       },
       {
-        title: "Security, Governance & Reliability Design",
+        title: "Security & Governance",
         description:
-          "Implement access controls, monitoring, and guardrails so systems are safe, auditable, and dependable.",
+          "Access controls, audit trails, and guardrails built in from day one.",
       },
       {
-        title: "Performance Tuning & Optimization",
+        title: "Quality & Performance",
         description:
-          "Improve accuracy, speed, and cost efficiency before anything is rolled out broadly.",
+          "Tune accuracy, reliability, and cost before anything rolls out broadly.",
       },
     ],
   },
@@ -154,38 +169,38 @@ export const SERVICES_PHASES: readonly ServicePhase[] = [
     number: "3",
     navLabel: "3. Adopt",
     title: "Adopt",
-    subtitle: "Make AI part of how work actually gets done",
+    subtitle: "Make AI part of how work gets done",
     description: [
-      "Shipping software isn't success.",
-      "Adoption is. In this phase, we work side by side with your teams to ensure new systems are understood, trusted, and used every day. The goal isn't a handover. It's ownership.",
+      "Building is not the finish line.",
+      "We work alongside your teams until new systems are understood, trusted, and used daily. The goal is adoption your company owns, not a vendor dependency.",
     ],
     whatWeDo: [
       {
-        title: "Pilot Launch & Controlled Rollout",
+        title: "Pilot & Rollout",
         description:
-          "Introduce systems intentionally, gather feedback, and refine before scaling.",
+          "Introduce systems carefully, gather feedback, refine before scaling.",
       },
       {
-        title: "AI Enablement Sessions",
+        title: "Team Enablement",
         description:
-          "Hands-on training so teams know when and how to use what's been built.",
+          "Train teams on when, how, and why to use what was built.",
       },
       {
-        title: "Workflow Integration Support",
+        title: "Workflow Integration",
         description:
-          "Embed AI into existing routines without slowing anyone down.",
+          "Embed AI into daily routines without disrupting how work gets done.",
       },
       {
-        title: "Performance Tracking & Ongoing Optimization",
+        title: "Adoption Tracking",
         description:
-          "Measure impact, improve continuously, and lock in the gains.",
+          "Measure usage and impact. Improve until it runs without us.",
       },
     ],
   },
 ] as const;
 
 export const PROCESS_SECTION = {
-  title: "Three things. Every time.",
+  title: "How we work.",
   ctaLabel: "get in touch",
   ctaHref: "/work-with-us",
   steps: [
@@ -194,21 +209,21 @@ export const PROCESS_SECTION = {
       title: "Identify",
       serviceTab: "identify",
       description:
-        "Every project starts with clarity. We start by understanding how your team actually works: where time is being lost, what slows things down, and why work piles up. From there, we find the 5% of opportunities worth building.",
+        "Map how work flows. Find the AI opportunities that will change how teams operate, not just one isolated task.",
     },
     {
       number: "2",
       title: "Develop",
       serviceTab: "develop",
       description:
-        "Once we know what matters, we move quickly and get to the building. Our team plans and develops solutions that fit seamlessly into your existing systems, built the right way, so they work exactly as they should from day one.",
+        "Senior engineers build internal apps, pipelines, and agents into your stack. Production quality, built to last.",
     },
     {
       number: "3",
       title: "Adopt",
       serviceTab: "adopt",
       description:
-        "Then we make it real. We work side by side with your teams: training, fine-tuning, and helping them integrate your new systems into their everyday work. By the time we step back, it's not a project anymore. It's just how work gets done.",
+        "Stay until your team uses it daily. Training, integration, and refinement until AI is part of how work gets done.",
     },
   ],
 } as const;
@@ -218,9 +233,9 @@ export type StatItem =
   | { label: string; target: number; suffix: string };
 
 export const STATS: StatItem[] = [
-  { label: "AI products shipped", target: 50, suffix: "+" },
-  { label: "average MVP delivery", display: "6 Weeks" },
-  { label: "faster than traditional agencies", target: 10, suffix: "x" },
+  { label: "production systems shipped", target: 50, suffix: "+" },
+  { label: "senior engineers on every build", target: 17, suffix: "" },
+  { label: "phases from discovery to adoption", display: "3" },
 ];
 
 export type HeroClient = {
@@ -271,61 +286,58 @@ export const HERO_CLIENTS: HeroClient[] = [
 
 export const FAQ_SECTION = {
   title: "FAQs",
-  subtitle: "You've got questions. We've got answers.",
+  subtitle: "Straight answers.",
 } as const;
 
 export const FAQS: { question: string; answer: string }[] = [
   {
-    question:
-      "How is Imaginary Space different from every other AI company out there?",
+    question: "What is Imaginary Space?",
     answer:
-      "We're workflow specialists first, AI specialists second. We start by understanding how your teams actually work, then reimagine what's possible with AI, without pushing any single tool or platform. Tool-agnostic, industry-agnostic, results-obsessed.",
+      "An AI adoption partner for venture-backed and enterprise teams. We help companies adopt AI the right way: custom operations layers, internal apps, data pipelines, and agents built around how you work. Same senior team from discovery through adoption.",
   },
   {
-    question: "How do I know if we're ready for AI?",
+    question: "Do you work with venture firms?",
     answer:
-      "You're ready if you have clear pain points, repetitive work, or untapped data slowing things down. We'll help you figure out what's worth automating - and what's not.",
+      "Yes. We partner with GPs and platform teams to drive AI adoption across portfolio companies, from identifying the right use cases to building and embedding systems inside the companies you back.",
+  },
+  {
+    question: "How are you different from other AI studios?",
+    answer:
+      "Senior team, from first conversation to adoption. You work directly with the 17 engineers who build and own the work. No offshore bench, no junior layers. Clients choose us because we stay until AI is part of how their company operates.",
   },
   {
     question: "What happens after you deliver?",
     answer:
-      "We don't hand off and vanish. We train your people, monitor how it's used, and refine until it runs smoothly without us.",
+      "We train your team, track adoption, and refine until the system runs without us. Adoption is the goal, not a handover deck.",
   },
   {
-    question: "How much internal time will this take?",
+    question: "How much time does our team need to commit?",
     answer:
-      "We know that you hired us to get things off of your team's plate. So, we keep your team's involvement focused and efficient - just enough to capture what matters, then we do the rest.",
+      "As little as possible. Your involvement is scoped to share domain knowledge and validate in live workflows. We handle the engineering and integration.",
   },
   {
-    question: "How long until we see real results?",
+    question: "Why focus on adoption instead of just building a product?",
     answer:
-      "You'll typically see a working pilot within weeks, not months. We move fast, test early, and scale only once it's proven.",
+      "A product that solves one problem does not change a company. We build systems that improve how teams operate, think, and use AI day to day. That is what lasting value looks like.",
   },
   {
-    question:
-      "We don't have clean data or a big tech team. Can we still work together?",
+    question: "We tried AI before and it did not stick. Why would this be different?",
     answer:
-      "Too vague to answer. If this sounds like you, let's have a chat. Bottom line: We work with what you have, design around your existing systems, and handle the technical lift so your team can focus on their real work.",
-  },
-  {
-    question:
-      "We've already tried AI and it didn't work. Why would this be any different?",
-    answer:
-      "Most teams fail because they start with the wrong use cases or stop at the prototype. We focus only on what's worth building and stay through adoption - so it actually ships and delivers.",
+      "Most teams fail because they pick the wrong use cases, stop at the prototype, or never invest in adoption. We stay through all three phases so AI becomes part of how work gets done.",
   },
 ];
 
 export const CASE_STUDIES_SECTION = {
-  title: "Don't just take our word for it...",
+  title: "Work we've shipped",
 } as const;
 
 export const CTA_SECTION = {
   lines: [
-    { text: "AI is here. Most will react.", tone: "primary" as const },
-    { text: "The few with a plan will lead.", tone: "mid" as const },
-    { text: "We build for those few.", tone: "accent" as const },
+    { text: "Ready to adopt AI the right way?", tone: "primary" as const },
+    { text: "We build around how you work.", tone: "mid" as const },
+    { text: "Let's talk.", tone: "accent" as const },
   ],
-  ctaLabel: "Let's build together",
+  ctaLabel: "Get in touch",
   ctaHref: "/work-with-us",
 } as const;
 
@@ -351,17 +363,17 @@ export const CASE_STUDIES: CaseStudy[] = [
       "An AI-powered RFI platform that turns days of manual land-use research into seconds.",
     image: "/images/landible.png",
     subtitle:
-      "An AI-powered RFI platform that accepts any template, auto-fills from authoritative sources, and validates with integrated mapping.",
+      "Accepts any template, auto-fills from authoritative sources, and validates with integrated mapping.",
     metrics: [
       { value: "428%", label: "Time saved on RFI completion" },
       { value: "8+", label: "Authoritative data sources" },
     ],
     problem:
-      "Land developers spend days completing RFIs manually, gathering data from government sources, juggling template formats, and coordinating feedback across teams. Projects stall for weeks, data errors are costly, and smaller teams can't compete without dedicated research staff.",
+      "Land developers spend days completing RFIs manually, gathering data from government sources, juggling template formats, and coordinating across teams. Projects stall for weeks and data errors are costly.",
     solution:
-      "An AI-powered RFI platform that accepts any template format, auto-fills fields from 8+ authoritative data sources, and validates with integrated mapping. Hours of manual research replaced by seconds of automated data collection, with visual overlays for zoning, floodplains, and parcel boundaries, plus export-ready PDFs and CSVs for any agency.",
+      "An AI-powered RFI platform that accepts any template format, auto-fills fields from 8+ authoritative data sources, and validates with integrated mapping. Manual research replaced by automated data collection with export-ready outputs for any agency.",
     results:
-      "428% time savings on RFI completion and higher data accuracy through automated validation. Teams manage multiple projects without expanding headcount, and smaller firms now compete with enterprise players using the same authoritative data sources.",
+      "428% time savings on RFI completion and higher data accuracy through automated validation. Teams manage multiple projects without expanding headcount.",
   },
   {
     slug: "measure-ai",
@@ -371,50 +383,50 @@ export const CASE_STUDIES: CaseStudy[] = [
       "AI that reads MEP drawings and builds a tender-ready Bill of Quantities in minutes.",
     image: "/images/measure-ai.png",
     subtitle:
-      "One platform that reads your drawings, identifies every component, and builds a structured Bill of Quantities automatically.",
+      "Reads your drawings, identifies every component, and builds a structured Bill of Quantities automatically.",
     metrics: [
       { value: "< 3 min", label: "10 drawings processed" },
       { value: "±2%", label: "Measurement accuracy" },
       { value: "15+", label: "Component types detected" },
     ],
     problem:
-      "Engineers receive 2D PDF drawings and spend hours tracing ductwork runs, counting fittings, and building Bills of Quantities by hand, one fitting at a time. Manual processes mean inconsistent accuracy, slow turnaround, and estimators buried in spreadsheets instead of winning work.",
+      "Engineers receive 2D PDF drawings and spend hours tracing ductwork runs, counting fittings, and building Bills of Quantities by hand. Manual processes mean inconsistent accuracy and estimators buried in spreadsheets.",
     solution:
-      "One platform that reads your drawings, identifies every duct, fitting, damper, and diffuser, and builds a structured Bill of Quantities automatically. Upload your PDFs and let the AI detect, classify, and measure over 15 core component types. Review every detection with confidence scores and interactive overlays, then export a fully structured BOQ (NRM, SMM7, or DW144) directly to Excel or PDF.",
+      "One platform that reads drawings, identifies every duct, fitting, damper, and diffuser, and builds a structured Bill of Quantities automatically. Every detection is reviewable with confidence scores and interactive overlays.",
     results:
-      "10 drawings processed in under 3 minutes, measurement accuracy within ±2%, and every quantity traceable back to the exact drawing it came from. Moving ventilation teams from manual takeoff to tender-ready output with auditability built in.",
+      "10 drawings processed in under 3 minutes, measurement accuracy within ±2%, and every quantity traceable back to the exact drawing it came from.",
   },
   {
     slug: "flor-work",
     label: "DevTools · SaaS",
-    title: "Ship Faster. Manage Less.",
+    title: "Engineering Ops, Automated",
     blurb:
-      "An AI agent that plans sprints, assigns work, and keeps engineering teams in sync.",
+      "An AI agent that plans sprints, assigns work, and keeps engineering teams aligned.",
     image: "/images/flor-work.png",
     subtitle:
-      "An AI agent that generates sprint plans, assigns tasks by skill and capacity, and keeps everyone in sync. No standups needed.",
+      "Generates sprint plans, assigns tasks by skill and capacity, and keeps everyone aligned.",
     metrics: [
       { value: "40%", label: "Less meeting time" },
       { value: "3x", label: "Faster sprint planning" },
-      { value: "500+", label: "Teams shipping faster" },
+      { value: "500+", label: "Teams using the platform" },
     ],
     problem:
-      "Engineering teams are drowning in project management overhead: sprint planning, standups, and status updates consume hours every week. Engineers spend 40% less time coding, sprint planning takes days, and tasks fall through the cracks. Teams without PMs are forced to choose between speed and organization.",
+      "Engineering teams lose hours every week to sprint planning, standups, and status updates. Work falls through the cracks and senior engineers spend less time building.",
     solution:
-      "An AI agent that generates sprint plans in seconds, assigns tasks by skill and capacity, and keeps everyone in sync through Slack. No standups needed. It plugs into GitHub, Jira, Linear, and Notion, detects blockers before they escalate, and runs on enterprise-grade, scalable infrastructure.",
+      "An AI agent that generates sprint plans, assigns tasks by skill and capacity, and keeps teams aligned through Slack. Integrates with GitHub, Jira, Linear, and Notion.",
     results:
-      "40% less meeting time, 3x faster sprint planning, and 95% accuracy on AI-generated task assignments. 500+ teams now ship faster without sacrificing visibility, because the best project management is the kind you never think about.",
+      "40% less meeting time, 3x faster sprint planning, and 500+ teams now run engineering ops with less overhead.",
   },
 ];
 
 export const TEAM_HERO = {
-  titleLine1: "Your AI Transformation",
-  titleLine2: "Partner.",
+  titleLine1: "Elite team.",
+  titleLine2: "Elite product.",
 } as const;
 
 export const TEAM_INTRO = [
-  "Imaginary Space was founded by two friends who saw, early on, the profound impact artificial intelligence would have on organisations over the coming decade. What began as a small, focused studio has grown into a team across the globe.",
-  "Today, we operate as the AI transformation partner to some of the world's leading organisations helping them move beyond experimentation and embed AI at the core of how they operate.",
+  "Imaginary Space is a senior product studio built around one belief: companies need to adopt AI the right way, not just buy another tool.",
+  "We work with venture-backed companies and enterprise teams who want a partner that stays. The same engineers who scope the work are the ones who build it and see it through adoption.",
 ] as const;
 
 export const TEAM_LEADS = [
@@ -423,7 +435,7 @@ export const TEAM_LEADS = [
     lastName: "Roper",
     title: "Founder & CEO",
     photo: "/images/team/harry-roper.png",
-    bio: "Harry Roper is the Founder and CEO of Imaginary Space, an AI-native product studio that has shipped over 50 products for venture-backed founders and enterprise teams across industries. Harry has spent the last seven years building the infrastructure, team, and methodology to take bold ideas from concept to scalable software in weeks. His clients include Dude Wipes, the UK Military, SignalFire, Renegade Partners, and Plato. Harry is a practitioner first, actively building, shipping, and documenting in public, and brings that same hands-on intensity to every engagement Imaginary Space takes on.",
+    bio: "Harry Roper is Founder and CEO of Imaginary Space, an AI-native product studio that has shipped over 50 products for venture-backed founders and enterprise teams. He has spent seven years building the team and methodology to help companies adopt AI the right way. Clients include Dude Wipes, Fifty Three Stations, the UK Military, SignalFire, Renegade Partners, and Plato. He writes and speaks on AI adoption, product quality, and what good looks like from the inside.",
     gradient: "from-[#0a1628] via-[#0d1e3a] to-[#0a1020]",
   },
   {
@@ -431,7 +443,7 @@ export const TEAM_LEADS = [
     lastName: "Albarracin",
     title: "Co-Founder & CTO",
     photo: "/images/team/franco-albarracin.png",
-    bio: "Franco Albarracin is the Co-Founder and CTO of Imaginary Space, where he leads a 17-person engineering team delivering production-ready SaaS and AI systems for venture-backed startups and enterprise clients. With a background spanning mobile development, RPA, and scalable architecture, Franco brings over five years of hands-on engineering leadership to every build. Franco's focus is consistent: serious software, built fast, without sacrificing the architectural integrity that makes it last.",
+    bio: "Franco Albarracin is Co-Founder and CTO of Imaginary Space, leading a 17-person engineering team that delivers production-ready SaaS and AI systems. His background spans mobile development, RPA, and scalable architecture. He sets the production standards, architecture decisions, and engineering structure behind every build.",
     gradient: "from-[#0a1a2e] via-[#0d2440] to-[#091020]",
   },
 ] as const;
@@ -473,3 +485,17 @@ export const TEAM_MEMBERS = [
     gradient: "from-[#0a1628] via-[#0d1e3a] to-[#0a1020]",
   },
 ] as const;
+
+export const CONTACT_PAGE = {
+  eyebrow: "Work With Us",
+  headline: "Looking for the right partner?",
+  headlineAccent: "",
+  intro:
+    "Venture firm, enterprise team, or portfolio company: tell us about your company and what adoption looks like for you. We respond within one business day.",
+  successTitle: "Message received",
+  successBody:
+    "Thanks for reaching out. We'll review your message and respond within one business day.",
+  sendAnother: "Send another message",
+  submitLabel: "Send Message →",
+  submittingLabel: "Sending…",
+} as const;

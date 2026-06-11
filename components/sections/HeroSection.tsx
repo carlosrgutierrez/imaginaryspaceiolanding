@@ -12,6 +12,7 @@ import HeroClientLogos from "@/components/sections/HeroClientLogos";
 import Button from "@/components/ui/Button";
 import {
   HERO_CLIENTS,
+  HERO_HEADLINE_LINES,
   HERO_SUBTITLE,
 } from "@/lib/constants";
 
@@ -129,7 +130,7 @@ export default function HeroSection() {
               <TickMark delay={1.35} style={{ bottom: -1, right: -(MARK / 2), width: MARK, height: 1, background: MC }} />
               <div>
                 <div>
-                  {["We don\u2019t just talk AI.", "We deliver it."].map((line, i) => (
+                  {HERO_HEADLINE_LINES.map((line, i) => (
                     <div key={i} className="overflow-hidden">
                       <motion.p
                         className="font-serif text-[clamp(1.6rem,3.5vw,2.5rem)] font-medium leading-[1.15] tracking-[-0.02em] text-text-primary"
@@ -144,7 +145,7 @@ export default function HeroSection() {
                 </div>
 
                 <motion.p
-                  className="mt-8 max-w-sm font-sans text-sm leading-[1.8] text-text-secondary/75 sm:text-[0.9rem]"
+                  className="mt-8 max-w-md font-sans text-sm leading-[1.75] text-text-secondary/75 sm:max-w-lg sm:text-[0.9rem]"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.7, delay: 0.7, ease: EASE }}

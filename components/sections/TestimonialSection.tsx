@@ -4,7 +4,7 @@ import Card from "@/components/ui/Card";
 const TESTIMONIALS = [
   {
     quote:
-      "Imaginary Space didn't just build us a tool — they transformed how our entire operations team thinks about automation. The ROI was visible within 60 days.",
+      "Imaginary Space didn't just build us a tool. They changed how our entire operations team thinks about automation. The ROI was visible within 60 days.",
     name: "James Thornton",
     role: "Chief Operations Officer",
     company: "Meridian Health Group",

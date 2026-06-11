@@ -116,24 +116,25 @@ const PARA_COUNT = STORY_PARAGRAPHS.length;
 // Compress color transitions to finish by 55% of total scroll — leaves room for cover
 const SCROLL_END = 0.55;
 const PARA_SHARE = SCROLL_END / PARA_COUNT;
-const FADE = 0.06;
+// Keep fade within each segment so scroll keyframes stay monotonic
+const FADE = Math.min(0.04, PARA_SHARE * 0.2);
 
 function useParagraphColor(progress: MotionValue<number>, index: number) {
-  const activateAt = index * PARA_SHARE;
-  const deactivateAt = (index + 1) * PARA_SHARE;
+  const start = index * PARA_SHARE;
+  const end = start + PARA_SHARE;
   const isLast = index === PARA_COUNT - 1;
 
   if (isLast) {
     return useTransform(
       progress,
-      [activateAt, activateAt + FADE],
+      [start, start + FADE * 2],
       ["rgba(255,255,255,0.18)", "rgba(255,255,255,1)"]
     );
   }
 
   return useTransform(
     progress,
-    [activateAt, activateAt + FADE, deactivateAt - FADE, deactivateAt],
+    [start, start + FADE, end - FADE, end],
     [
       "rgba(255,255,255,0.18)",
       "rgba(255,255,255,1)",
@@ -157,7 +158,7 @@ function ParagraphReveal({
   return (
     <motion.p
       style={{ color }}
-      className="font-sans text-2xl font-normal leading-snug sm:text-3xl lg:text-4xl"
+      className="text-balance text-center font-sans text-lg font-normal leading-snug sm:text-2xl lg:text-3xl"
     >
       {text}
     </motion.p>
@@ -350,9 +351,9 @@ export default function ScrollRevealText() {
           <PixelGrid />
           <motion.div
             style={{ y: contentY }}
-            className="relative z-10 mx-auto w-full max-w-3xl px-6 lg:px-8"
+            className="relative z-10 mx-auto w-full max-w-3xl px-6 text-center lg:px-8"
           >
-            <div className="flex flex-col gap-8 sm:gap-10">
+            <div className="flex flex-col items-center gap-5 sm:gap-8">
               {STORY_PARAGRAPHS.map((text, i) => (
                 <ParagraphReveal
                   key={text}
@@ -386,14 +387,12 @@ export default function ScrollRevealText() {
                 className="font-sans text-3xl font-medium leading-tight text-text-primary sm:text-4xl lg:text-5xl"
                 variants={{ hidden: { y: "105%" }, visible: { y: "0%", transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } }}
               >
-                {SCROLL_VALUE_BLOCK.headlinePrefix}{" "}
-                <span className="text-accent">{SCROLL_VALUE_BLOCK.headlineBrand}.</span>
+                {SCROLL_VALUE_BLOCK.headline}
               </motion.h2>
             </div>
           </motion.div>
 
           <p className="mt-6 font-sans text-base leading-relaxed text-text-secondary/70">
-            <span className="font-semibold text-text-primary">{SCROLL_VALUE_BLOCK.lead}</span>{" "}
             {para1} {para2}
           </p>
 

@@ -22,7 +22,7 @@ export default function StatsRow() {
                   <CountUp target={stat.target} suffix={stat.suffix} />
                 )}
               </div>
-              <div className="font-sans text-xs text-text-muted uppercase tracking-[0.14em] mt-3.5">
+              <div className="font-sans text-xs text-text-muted uppercase tracking-[0.14em] mt-3.5 max-w-[14rem] text-balance">
                 {stat.label}
               </div>
             </FadeInView>

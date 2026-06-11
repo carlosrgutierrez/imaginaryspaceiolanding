@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import {
   CONTACT_EMAIL,
   CONTACT_LOCATION,
+  CONTACT_PAGE,
   CONTACT_REACH,
 } from "@/lib/constants";
 import type { ContactFormErrors } from "@/lib/contact";
@@ -17,6 +18,7 @@ import { normalizeWebsiteUrl } from "@/lib/contact";
 const BUDGET_OPTIONS = ["< $10k", "$10k–$50k", "$50k–$150k", "$150k+"];
 
 const ROLE_OPTIONS = [
+  "Investor / VC Partner",
   "C-Suite / Founder",
   "VP / Director",
   "Engineering Manager",
@@ -171,17 +173,20 @@ export default function ContactSplit() {
 
           {/* ── Left column ── */}
           <FadeInView className="lg:sticky lg:top-28">
-            <SectionLabel className="mb-6">Work With Us</SectionLabel>
+            <SectionLabel className="mb-6">{CONTACT_PAGE.eyebrow}</SectionLabel>
 
             <h1 className="mb-8 font-serif text-4xl leading-[1.2] text-text-primary lg:text-5xl">
-              Ready to transform your business with{" "}
-              <span className="text-accent-grad">AI?</span>
+              {CONTACT_PAGE.headline}
+              {CONTACT_PAGE.headlineAccent ? (
+                <>
+                  {" "}
+                  <span className="text-accent-grad">{CONTACT_PAGE.headlineAccent}</span>
+                </>
+              ) : null}
             </h1>
 
             <p className="mb-12 max-w-md font-sans text-base leading-relaxed text-text-secondary">
-              Tell us about your project and we&apos;ll get back to you within
-              one business day. No obligations, no sales pressure — just an
-              honest conversation about whether we&apos;re the right fit.
+              {CONTACT_PAGE.intro}
             </p>
 
             <div className="flex flex-col gap-6">
@@ -236,11 +241,10 @@ export default function ContactSplit() {
                 </div>
                 <div>
                   <h2 className="mb-3 font-serif text-3xl text-text-primary">
-                    Message received
+                    {CONTACT_PAGE.successTitle}
                   </h2>
                   <p className="mx-auto max-w-md font-sans text-base leading-relaxed text-text-secondary">
-                    Thanks for reaching out. We&apos;ll review your project and
-                    get back to you within one business day.
+                    {CONTACT_PAGE.successBody}
                   </p>
                 </div>
                 <Button
@@ -248,7 +252,7 @@ export default function ContactSplit() {
                   size="md"
                   onClick={() => setStatus("idle")}
                 >
-                  Send another message
+                  {CONTACT_PAGE.sendAnother}
                 </Button>
               </div>
             ) : (
@@ -400,7 +404,7 @@ export default function ContactSplit() {
                   className="mt-1 w-full rounded-lg"
                   disabled={status === "loading"}
                 >
-                  {status === "loading" ? "Sending…" : "Send Message →"}
+                  {status === "loading" ? CONTACT_PAGE.submittingLabel : CONTACT_PAGE.submitLabel}
                 </Button>
               </form>
             )}

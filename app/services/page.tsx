@@ -5,14 +5,14 @@ import ServiceTabs from "@/components/sections/ServiceTabs";
 import CaseStudyGrid from "@/components/sections/CaseStudyGrid";
 import CTAFooter from "@/components/sections/CTAFooter";
 
+import { SEO } from "@/lib/constants";
+
 export const metadata: Metadata = {
   title: "Services",
-  description:
-    "From Trying AI to Trusting It. Our Identify → Develop → Adopt methodology takes you from opportunity discovery to full adoption with measurable results at every step.",
+  description: SEO.servicesDescription,
   openGraph: {
-    title: "Services — From Trying AI to Trusting It",
-    description:
-      "A structured three-phase engagement. Identify the highest-value opportunities, build bespoke solutions, and drive real adoption.",
+    title: "Services",
+    description: SEO.servicesDescription,
   },
 };
 

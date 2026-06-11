@@ -27,7 +27,7 @@ function ProcessStepCard({
     <Link
       href={href}
       className="group relative flex min-h-[22rem] flex-1 flex-col justify-between border border-white/10 bg-bg-card/60 px-7 py-7 transition-all duration-500 hover:border-accent/60 hover:bg-bg-card focus:outline-none focus-visible:border-accent sm:min-h-[24rem] sm:px-8 sm:py-8 lg:min-h-[26rem] lg:px-10 lg:py-10"
-      aria-label={`${step.title} — view on Services`}
+      aria-label={`${step.title}, view on Services`}
     >
       {/* Top — number + icon, always visible */}
       <div className="flex items-start justify-between">
@@ -79,7 +79,7 @@ export default function ProcessSteps() {
             nowrap
             className="font-serif text-2xl tracking-[-0.01em] text-text-primary sm:text-[2rem]"
           >
-            {"Three things. Every time."}
+            {PROCESS_SECTION.title}
           </RevealHeading>
           <Link href={PROCESS_SECTION.ctaHref} className="shrink-0">
             <Button
